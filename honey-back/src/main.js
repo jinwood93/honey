@@ -24,9 +24,13 @@ const app = new Koa();
 const router = new Router();
 
 //라우터 적용전에 bodyparser적용
-app.use(bodyParser());
+// app.use(bodyParser());
 //app instance에 라우터 적용
-app.use(router.routes()).use(router.allowedMethods());
+// app.use(router.routes()).use(router.allowedMethods());
+
+app.use((ctx) => {
+    ctx.body = 'HELLO KOA';
+});
 
 const port = PORT || 4000;
 app.listen(port, () => {

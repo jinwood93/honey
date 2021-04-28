@@ -7,10 +7,11 @@ import {
   Scheduler,
   MonthView,
   WeekView,
-  Appointments,
   Toolbar,
   DateNavigator,
+  TodayButton,
   ViewSwitcher,
+  Appointments,
   AppointmentTooltip,
   AppointmentForm,
   DragDropProvider,
@@ -154,6 +155,7 @@ class AppointmentFormContainerBasic extends React.PureComponent {
       ...appointmentData,
       ...appointmentChanges,
     };
+    const { data, currentDate} = this.state;
 
     const isNewAppointment = appointmentData.id === undefined;
     const applyChanges = isNewAppointment
@@ -449,7 +451,8 @@ class Demo extends React.PureComponent {
           />
           <Toolbar />
           <DateNavigator/>
-          <ViewSwitcher />
+          <TodayButton/>
+          <ViewSwitcher/>
           <AppointmentForm
             overlayComponent={this.appointmentForm}
             visible={editingFormVisible}

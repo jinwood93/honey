@@ -1,0 +1,117 @@
+/* 
+도현 
+font-family: 'Do Hyeon', sans-serif;
+*/
+@import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap');
+/* 
+주아 
+font-family: 'Jua', sans-serif;
+*/
+@import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
+/* 
+Gothic A1
+font-family: 'Gothic A1', sans-serif;
+*/
+@import url('https://fonts.googleapis.com/css2?family=Gothic+A1:wght&display=swap');
+
+
+.chatContainer {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    margin: 15px;
+}
+
+.chatRoomName {
+    color: #534847;
+    text-align: center;
+    margin-top: 0;
+    font-family: 'Gothic A1', sans-serif;
+    /* font-size: large; */
+    font-size: 150%; 
+}
+
+.messageContainer {
+    flex: 1;
+    min-height: 100px;
+    overflow: auto;
+    border: 1px solid none;
+    border-radius: 7px 7px 0 0;
+}
+
+.messageList {
+    list-style-type: none;
+    padding: 0;
+    font-family: 'Gothic A1', sans-serif;
+    font-weight: 500;
+}
+
+.textArea {
+    height: 60px;
+    max-height: 50%;
+    border: 1px solid #8b8687;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+::placeholder {
+    font-size: 120%;
+    font-family: 'Gothic A1', sans-serif;
+}
+
+.textMessage {
+    width: 100%;
+    max-width: 100%;
+    height: 50px;
+    max-height: 50%;
+    font-size: 15px;
+    margin-left: 10px;
+    margin-right: 10px;
+    padding: 5px 10px;
+    resize: none;
+    border: none;
+    font-family: 'Gothic A1', sans-serif;
+    font-weight: 500;
+}
+
+.messageItem {
+    width: 55%;
+    margin: 8px;
+    padding: 12px 8px;
+    word-break: break-word;
+    border-radius: 4px;
+    color: #534847;
+    font-family: 'Gothic A1', sans-serif;
+    font-weight: 500;
+}
+
+.sentMessage {
+    background-color: #ffda8e;
+    margin-left: auto;
+}
+
+.receivedMessage {
+    color: white;
+    background-color: #8b8687;
+    margin-right: auto;
+}
+
+.sendMessage {
+    font-family: 'Gothic A1', sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: #9B8281;
+    background: #ffda8e;
+    padding: 10px;
+    border: none;
+    border-radius: 30px;
+}
+
+.messageContainer, .textMessage, .sendMessage {
+    border-color: #9a9a9a;
+}

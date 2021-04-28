@@ -6,6 +6,11 @@ import Router from 'koa-router';
 import bodyParser from 'koa-bodyparser';
 import http from 'http';
 import socket from 'socket.io';
+import mongoose from 'mongoose';
+
+mongoose.connect(process.env.MONGO_URI, {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false})
+        .then(() => console.log("몽고디비를 연결해볼가..."))
+        .catch((error) => console.error(error)); 
 
 
 const port = process.env.PORT || 4000;
@@ -20,7 +25,7 @@ const server = http.createServer(app.callback());
 const io = socket(server, {
     cors: {
         origin: "*",
-    },
+    }
 });
 
 

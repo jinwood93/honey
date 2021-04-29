@@ -1,16 +1,49 @@
 import React, { useEffect, useRef, useState } from 'react';
-import useChat from '../useChat';
+import io from 'socket.io-client';
 import '../styles/Chat.css';
 
 const ChatPage = (props) => {
 
     const {room} = props.match.params;
-    const {messages, sendMessage} = useChat(room);
+    const [messages, setMessages] = useState([]);
     const [newMessage, setNewMessage] = useState('');
+    
+    const socketRef = useRef();
     const scrollRef = useRef();
+
+    useEffect(() => {
+        socketRef.current = io("http://localhost:4000", {
+            query: {room},
+        });
+        
+        socketRef.current.on('newMessage', (message) => {
+            const incomingMessage = {
+                ...message,
+                ownedByCurrentUser: message.senderId === socketRef.current.id,
+            };
+            setMessages((messages) => [...messages, incomingMessage]);
+        });
+
+        return() => {
+            socketRef.current.disconnect();
+        } 
+    }, [room]);
+
+    useEffect(() => {
+        scrollRef.current.scrollIntoView({ 
+            behavior: 'smooth' 
+        });
+    }, [messages]);
 
     const onChaneNewMessage = (e) => {
         setNewMessage(e.target.value);
+    }
+
+    const sendMessage = (messageBody) => {
+        socketRef.current.emit('newMessage', {
+            body: messageBody,
+            senderId: socketRef.current.id,
+        });
     }
 
     const onSendMessage = (e) => {
@@ -18,24 +51,24 @@ const ChatPage = (props) => {
         setNewMessage('');
     }
 
-    useEffect(() => {
-        scrollRef.current.scrollIntoView({ 
-            behavior: 'smooth' 
-        });
-    }, [messages])
+    // const noticeInputChat = document.querySelector(".noticeInputChat");
+
+    // if(newMessage) socketRef.current.emit('typing');
+    // else socketRef.current.emit('typingDone');
+
+    // socketRef.current.on('typing', (socketID) => {
+    //     // console.log(`타이핑중 ${noticeInputChat.innerHTML}`);
+    //     noticeInputChat.innerHTML = `${socketID} 입력 중...`;
+    // });
+    // socketRef.current.on('typingDone', () => {
+    //     // console.log(`NONONONONONONOLO ${noticeInputChat}`);
+    //     noticeInputChat.innerHTML = '?';
+    // });
 
     return (
         <div className="chatContainer">
             <h1 className="chatRoomName">{room}</h1>
             <div className="messageContainer"  >
-                {/* <ol>
-                    {messages.map((message) => (
-                        <li>
-                            {message.body}
-                        </li>
-                    ))}
-                </ol> */}
-                {/* 맨 처음 채팅방 생성될 때(데이터 없을 때) 에러 방지 */}
                 <ol className="messageList" style={{overflow:"scroll"}} ref={scrollRef}>
                         {messages.map((message, i) => (
                             <li
@@ -51,7 +84,7 @@ const ChatPage = (props) => {
                 </ol>
             </div>
             <div className="noticeInputChat">
-                ss
+                
             </div>
             <div className="textArea">
                 <textarea

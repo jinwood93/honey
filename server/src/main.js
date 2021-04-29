@@ -8,15 +8,15 @@ import http from 'http';
 import socket from 'socket.io';
 import mongoose from 'mongoose';
 
+import ChatDB from './models/chat';
+
 mongoose.connect(process.env.MONGO_URI, {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false})
         .then(() => console.log("몽고디비를 연결해볼가..."))
         .catch((error) => console.error(error)); 
 
-
 const port = process.env.PORT || 4000;
 const app = new Koa();
 const router = new Router();
-
 
 // http 모듈로 서버 생성 ==> server instance
 const server = http.createServer(app.callback());
@@ -28,38 +28,44 @@ const io = socket(server, {
     }
 });
 
-
 app.use(bodyParser());
 app.use(router.routes()).use(router.allowedMethods());
-
 
 server.listen(port, () => {
     console.log(`서버 시작... ${port}번 포트`);
 });
 
-
 // socket.io 문법
 io.on('connection', (socket) => {
-    console.log(`소켓 연결 ${socket.id}`);
-
     const {room} = socket.handshake.query;
     socket.join(room);
+
+    console.log(`소켓 연결 ${socket.id}`);
     console.log(`입장 ${room}으로 입장`);
+
+    socket.on('typing', () => {
+        // socket.to(room).emit('typing', socket.id);
+        socket.broadcast.emit('typing', socket.id);
+    });
+    socket.on('typingDone', () => {
+        // socket.to(room).emit('typingDone');
+        socket.broadcast.emit('typingDone');
+    });
 
     // 클라이언트로 이벤트 발생
     socket.on('newMessage', (data) => {
-        // io.in(room).emit('newMessage', data.body);
+        // 여기서 디비에 저장
         io.in(room).emit('newMessage', data);
+
+        console.log(`${data.senderId} : ${data.body}`);
+
+        const chatDb = new ChatDB({
+            room: room,        
+            user: data.senderId,
+            message: data.body,
+        });
+        chatDb.save();
     });
-
-    // socket.on('send', (data) => {
-    //     console.log(`전달된 메세지 ${data.massege}`);
-    // });
-
-    // socket.on('new', (name) => {
-    //     console.log(`전달된 메세지 ${name}`);
-    //     io.socket.emit('show', {message: `${name} 님이 접속`});
-    // });
 
     socket.on('disconnect', () => {
         socket.leave(room);

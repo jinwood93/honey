@@ -10,6 +10,7 @@ import {
   Appointments,
   Toolbar,
   DateNavigator,
+  onNavigate,
   ViewSwitcher,
   AppointmentTooltip,
   AppointmentForm,
@@ -95,7 +96,10 @@ class AppointmentFormContainerBasic extends React.PureComponent {
 
     this.state = {
       appointmentChanges: {},
+      currentDate: new Date(),
     };
+    this.currentDateChange = (currentDate) => { this.setState({ currentDate }); }
+  
 
     this.getAppointmentData = () => {
       const { appointmentData } = this.props;
@@ -448,7 +452,7 @@ class Demo extends React.PureComponent {
             showDeleteButton
           />
           <Toolbar />
-          <DateNavigator/>
+          <DateNavigator onNavigate/>
           <ViewSwitcher />
           <AppointmentForm
             overlayComponent={this.appointmentForm}
@@ -478,21 +482,6 @@ class Demo extends React.PureComponent {
             </Button>
           </DialogActions>
         </Dialog>
-
-        <Fab
-          color="secondary"
-          className={classes.addButton}
-          onClick={() => {
-            this.setState({ editingFormVisible: true });
-            this.onEditingAppointmentChange(undefined);
-            this.onAddedAppointmentChange({
-              startDate: new Date(currentDate).setHours(startDayHour),
-              endDate: new Date(currentDate).setHours(startDayHour + 1),
-            });
-          }}
-        >
-          <AddIcon />
-        </Fab>
       </Paper>
     );
   }

@@ -23,6 +23,9 @@ import {
 import ColorLens from '@material-ui/icons/ColorLens';
 import { withStyles } from '@material-ui/core/styles';
 import { owners } from '../calendar/demo-data/tasks';
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
+
 
 const appointments = [
   {
@@ -204,6 +207,11 @@ const styles = theme => ({
   container: {
     paddingBottom: theme.spacing(1.5),
   },
+  addButton: {
+    position: 'absolute',
+    bottom: theme.spacing(1) * 3,
+    right: theme.spacing(1) * 4,
+  },
 });
 
 // const WeatherIcon = ({ classes, id }) => {
@@ -275,12 +283,15 @@ const FlexibleSpace = withStyles(styles, { name: 'ToolbarRoot' })(({ classes, ..
   </Toolbar.FlexibleSpace>
 ));
 
+
+
 export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
 
     this.state = {
       data: appointments,
+      currentDate: new Date(),
     };
 
     this.commitChanges = this.commitChanges.bind(this);
@@ -306,6 +317,17 @@ export default class Demo extends React.PureComponent {
 
   render() {
     const { data } = this.state;
+    const {
+      currentDate,
+      startDayHour,
+      // visible,
+      // visibleChange,
+      // appointmentData,
+      // cancelAppointment,
+      // target,
+      // onHide,
+    } = this.props;
+    const {classes} = this.props;
 
     return (
       <Paper>
@@ -313,7 +335,7 @@ export default class Demo extends React.PureComponent {
           data={data}
         >
           <ViewState
-            CurrentDate={new Date()}
+            currentDate={currentDate}
           />
           <EditingState
             onCommitChanges={this.commitChanges}
@@ -346,8 +368,23 @@ export default class Demo extends React.PureComponent {
             showOpenButton
           />
           <AppointmentForm />
+          
           <DragDropProvider />
         </Scheduler>
+        {/* <Fab
+          color="secondary"
+          className={classes.addButton}
+          onClick={() => {
+            this.setState({ editingFormVisible: true });
+            this.onEditingAppointmentChange(undefined);
+            this.onAddedAppointmentChange({
+              startDate: new Date(currentDate).setHours(startDayHour),
+              endDate: new Date(currentDate).setHours(startDayHour + 1),
+            });
+          }}
+        >
+          <AddIcon />
+        </Fab> */}
       </Paper>
     );
   }

@@ -5,14 +5,21 @@ const ChatSchema = new Schema({
     //     _id: mongoose.Types.ObjectId,
     //     username: String,
     // }
-    room: String,
-    user: String,
+    room: {
+        type: String,
+        require: true,
+    },
+    user: {
+        type: String,
+        require: true,
+    },
     message: String,
+    messageImg: String,
     messageDate: {
         type: Date,
         default: Date.now,
     },
 });
 
-const ChatDB = mongoose.model('ChatDB', ChatSchema);
-export default ChatDB;
+const Chatting = mongoose.model('Chatting', ChatSchema);
+export default Chatting;

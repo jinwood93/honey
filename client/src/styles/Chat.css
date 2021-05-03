@@ -48,7 +48,7 @@ font-family: 'Gothic A1', sans-serif;
     padding: 0;
     font-family: 'Gothic A1', sans-serif;
     font-weight: 500;
-    /* overflow: scroll; */
+    overflow: "scroll";
 }
 
 .textArea {
@@ -95,10 +95,16 @@ font-family: 'Gothic A1', sans-serif;
     background-color: #ffda8e;
     margin-left: auto;
 }
+.sentId {
+    margin-left: auto;
+}
 
 .receivedMessage {
     color: white;
     background-color: #8b8687;
+    margin-right: auto;
+}
+.receivedId {
     margin-right: auto;
 }
 
@@ -115,4 +121,8 @@ font-family: 'Gothic A1', sans-serif;
 
 .messageContainer, .textMessage, .sendMessage {
     border-color: #9a9a9a;
+}
+
+.imageItem {
+    background-color: rgba(255, 255, 255, 0);
 }

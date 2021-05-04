@@ -11,6 +11,12 @@ import rootReducer from "./reducers/combine";
 import Subinformation from "./components/Subinformation";
 import PasswordChange from "./components/PasswordChange";
 import Mainpage from "./components/Mainpage";
+import Modal from "react-modal";
+import Calendar from "./client/src/Components/Calender";
+import ChatHomePage from "./pages/ChatHomePage";
+import ChatPage from "./pages/ChatPage";
+
+Modal.setAppElement("#root");
 
 let store = createStore(rootReducer);
 
@@ -25,6 +31,9 @@ function App() {
             <Route path="/register" exact component={Register}></Route>
             <Route path="/login" exact component={Login}></Route>
             <Route path="/code" exact component={Code}></Route>
+            <Route path="/calendar" exact component={Calendar}></Route>
+            <Route exact path="/chat" component={ChatHomePage} />
+            <Route exact path="/chat/:room" component={ChatPage} />
             <Route
               path="/subinformation"
               exact

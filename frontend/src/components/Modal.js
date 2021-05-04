@@ -1,7 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../styles/Modal.css';
+import axios from 'axios';
 
-const Modal = ({ modalState, closeModal, onSendImage }) => {
+const Modal = ({ modalState, closeModal/*, onSendImage, onImgChange, image*/ }) => {
+
+        const [image, setImage] = useState(null);
+        // 이미지업로드
+        const onImgChange = (e) => {
+            setImage(e.target.file);
+        }
+    
+        const onSendImage = async () => {
+            const formData = new FormData();
+            formData.append('file', image);
+            const res = await axios.post('/api/upload', formData);
+            console.log(formData);
+    
+            // socketRef.current.emit('newImage', {
+            //     senderId: socketRef.current.id,
+            //     imageMessage: newImage,
+            // });
+        }
     return (
         <div className={ modalState? 'openModal' : 'nomodal'}>
             { modalState? 
@@ -14,9 +33,8 @@ const Modal = ({ modalState, closeModal, onSendImage }) => {
                 <div className="modalMiddle">
                     <input
                         type="file"
-                        // value={}
-                        // onChange={}
-                        // multiple
+                        value={image}
+                        onChange={onImgChange}
                         accept=".png, .jpg, .jpeg, .gif"
                         className="imageMessage"
                     />

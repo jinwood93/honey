@@ -6,6 +6,7 @@ import socketio from "socket.io-client";
 import { useHistory } from "react-router-dom";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
+import love from "../images/love.gif";
 function Code(props) {
   let history = useHistory();
   console.log("gg");
@@ -20,9 +21,9 @@ function Code(props) {
 
   const [Code, setCode] = useState("");
   const [uCode, usetCode] = useState("");
+  const [display, setdisplay] = useState(false);
 
   useEffect(() => {
-    console.log("찾아낸다");
     axios
       .post("/code", { email: props.state.email })
       .then((response) => setCode(response.data.randomCode));
@@ -33,6 +34,7 @@ function Code(props) {
   };
 
   const conn = () => {
+    setdisplay(true);
     console.log("코드코드" + Code);
     socket.emit("send code", { code: uCode, mycode: Code });
   };
@@ -92,6 +94,9 @@ function Code(props) {
       <input type="text" value={uCode} onChange={lovecode}></input>
       <button onClick={conn}>연결하기</button>
       <h2>{props.state.email}</h2>
+      <p></p>
+      {display === true ? <img src={love}></img> : null}
+      {display === true ? <h3>연결중</h3> : null}
     </div>
   );
 }

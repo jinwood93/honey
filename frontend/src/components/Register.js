@@ -24,15 +24,19 @@ function Register(props) {
 
   const onsubmit = (e) => {
     e.preventDefault();
-    console.log(email, password);
-    props.registeremail(email);
-    axios
-      .post("/register", { email: email, password: password })
-      .then((res) => {
-        res.data.success === true
-          ? history.push("/code")
-          : alert(res.data.message);
-      });
+    if (password.length < 6) {
+      alert("비밀번호는 6자 이상 작성 해주세요 ");
+    } else {
+      console.log(email, password);
+      props.registeremail(email);
+      axios
+        .post("/register", { email: email, password: password })
+        .then((res) => {
+          res.data.success === true
+            ? history.push("/code")
+            : alert(res.data.message);
+        });
+    }
   };
 
   return (
@@ -48,7 +52,7 @@ function Register(props) {
           onChange={onChange}
         ></input>
         <input
-          type="text"
+          type="password"
           name="password"
           placeholder="비밀번호"
           value={password}

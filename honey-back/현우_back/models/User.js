@@ -20,13 +20,17 @@ const userSchema = mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  firstdate: {
+    type: Date,
+    default: Date.now,
+  },
   sex: {
     type: String,
   },
   authCode: {
     type: Number,
   },
-  image: String,
+  profileimage: String,
   token: {
     type: String,
   },

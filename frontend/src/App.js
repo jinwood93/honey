@@ -6,7 +6,7 @@ import First from "./components/First";
 import Code from "./components/Code";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { Provider } from "react-redux";
-import { createStore } from "redux";
+import { createStore } from "redux"
 import rootReducer from "./reducers/combine";
 import Subinformation from "./components/Subinformation";
 import PasswordChange from "./components/PasswordChange";
@@ -15,6 +15,7 @@ import Modal from "react-modal";
 import Calendar from "./client/src/Components/Calender";
 import ChatHomePage from "./pages/ChatHomePage";
 import ChatPage from "./pages/ChatPage";
+import Mypage from "./components/Mypage";
 
 Modal.setAppElement("#root");
 
@@ -45,6 +46,7 @@ function App() {
               component={PasswordChange}
             ></Route>
             <Route path="/mainpage" exact component={Mainpage}></Route>
+            <Route path="/mypage" exact component={Mypage}></Route>
           </Provider>
         </Switch>
       </BrowserRouter>

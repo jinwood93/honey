@@ -41,3 +41,28 @@
   width: 20rem;
   height: 20rem;
 }
+.profileimg{
+  width:70px;
+  height: 70px;
+  border-radius: 70%;
+  overflow: hidden;
+}
+.user-profileimg{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  
+}
+
+.profileimgyo{
+  width:200px;
+  height: 200px;
+  border-radius: 30%;
+  overflow: hidden;
+}
+
+.backimg{
+  background-image: url('../src/images/background.jpg');
+  width: auto;
+  height: auto;
+}

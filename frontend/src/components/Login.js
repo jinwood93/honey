@@ -22,6 +22,7 @@ function Login() {
     e.preventDefault();
     axios.post("/login", { email: email, password: password }).then((res) => {
       if (res.data.loginSuccess === true) {
+        
         history.push("/mainpage");
       } else {
         alert(res.data.message);

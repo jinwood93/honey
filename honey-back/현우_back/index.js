@@ -119,13 +119,38 @@ app.post("/lovecode", (req, res) => {
 });
 
 app.post("/subinformation", (req, res) => {
-  console.log(req.body);
+  console.log("여기만");
+
   upload(req, res, function (err) {
+    const {
+      file,
+      body: { Email, Sex, Username, Birth, FirstDate },
+    } = req;
+
     if (err instanceof multer.MulterError) {
       return next(err);
     } else if (err) {
       return next(err);
     }
+
+    User.update(
+      { email: Email },
+      {
+        $set: {
+          sex: Sex,
+          username: Username,
+          birth: Birth,
+          firstdate: FirstDate,
+          profileimage: req.file.filename,
+        },
+      },
+      { upsert: true },
+      function (err) {
+        if (err) console.log(err);
+        console.log("잘들어감");
+      }
+    );
+
     console.log("원본파일명 : " + req.file.originalname);
     console.log("저장파일명 : " + req.file.filename);
     console.log("크기 : " + req.file.size);
@@ -156,7 +181,7 @@ app.post("/findmypassword", async function (req, res) {
         requireTLS: true,
         auth: {
           user: "hyeonub600@gmail.com", //gmail주소입력
-          pass: "qkrgusdn123!", //gmail패스워드 입력
+          pass: "high9696!", //gmail패스워드 입력
         },
       });
       let emailcheck = 123456;

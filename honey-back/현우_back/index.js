@@ -12,11 +12,11 @@ const config = require("./config/key");
 const { User } = require("./models/User");
 const { Couple } = require("./models/Couple");
 const nodemailer = require("nodemailer");
-const upload = require("./fileupload");
+
 const multer = require("multer");
 const bcrypt = require("bcrypt");
 const { auth } = require("./middleware/auth");
-
+const upload=multer({dest:'./uploads'})
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 app.use(bodyParser.json());
@@ -109,38 +109,36 @@ app.post("/code", (req, res) => {
 });
 
 app.post("/lovecode", (req, res) => {
+  console.log(req.body.authCode2.length)
   if (req.body.authCode2.length == 8) {
-    const couple = new Couple(req.body);
-    couple.save((err, coupleinfo) => {
-      if (err) return res.json({ success: false, err });
-      return res.status(200).json({ success: true, coupleinfo });
-    });
-  }
+    console.log(req.body.authCode2)
+    Couple.findOne({ authCode2:req.body.authCode2  }, (err, code) => {
+      if (!code) {
+        const couple = new Couple(req.body);
+        couple.save((err, coupleinfo) => {
+          if (err) return res.json({ success: false, err });
+          return res.status(200).json({ success: true, coupleinfo });
+        });
+      }
+
+
+
+  })}
 });
 
-app.post("/subinformation", (req, res) => {
+app.post("/subinformation",upload.single('file'),(req, res) => {
   console.log("여기만");
 
-  upload(req, res, function (err) {
-    const {
-      file,
-      body: { Email, Sex, Username, Birth, FirstDate },
-    } = req;
-
-    if (err instanceof multer.MulterError) {
-      return next(err);
-    } else if (err) {
-      return next(err);
-    }
-
+ console.log(req.file.filename)
+ 
     User.update(
-      { email: Email },
+      { email: req.body.Email },
       {
         $set: {
-          sex: Sex,
-          username: Username,
-          birth: Birth,
-          firstdate: FirstDate,
+          sex: req.body.Sex,
+          username: req.body.Username,
+          birth: req.body.Birth,
+          firstdate: req.body.FirstDate,
           profileimage: req.file.filename,
         },
       },
@@ -159,7 +157,7 @@ app.post("/subinformation", (req, res) => {
     return res.json({
       success: `/img/${req.file.filename}`,
     });
-  });
+  
 });
 
 app.post("/findmypassword", async function (req, res) {
@@ -224,14 +222,23 @@ app.post("/updatepassword", async function (req, res) {
     );
   });
 });
-app.post("/auth", auth, (req, res) => {
+app.get("/auth", auth, (req, res) => {
+  
+  console.log(req.user)
   res.status(200).json({
     _id: req.user._id,
-    email: req.user.email,
+    profileimage:`/img/${req.user.profileimage}`,
+    authCode:req.user.authCode,
+    firstdate:req.user.firstdate,
+    birth:req.user.birth,
+    username:req.user.username,
+    // authCode:req.user.authCode,
+    // firstdate:req.user.firstdate
     //여러가지정보들
   });
 });
 app.get("/logout", auth, (req, res) => {
+
   User.findOneAndUpdate(
     {
       _id: req.user._id,
@@ -243,6 +250,38 @@ app.get("/logout", auth, (req, res) => {
     }
   );
 });
+
+
+app.post("/findmylove", (req, res) => {
+  
+  Couple.findOne({ authCode1: req.body.authCode }, async function (err, code) {
+    if (!code) {
+      Couple.findOne({ authCode2: req.body.authCode }, async function (err, code) {
+     console.log("이거"+code.authCode2)
+          return res.json({
+            lovecode: code.authCode1,
+            
+          });
+      })
+    }
+    else{
+      return res.json({
+        lovecode: code.authCode2,})
+    }
+
+})
+})
+app.post("/findmypartner",(req,res)=>{
+  User.findOne({ authCode: req.body.code }, async function (err, code) {
+    if (!code) {
+      console.log("에이")
+      return res.json({success:false})
+    }
+  else{
+    return res.json({partnerimg:`/img/${code.profileimage}`})
+  }
+  })
+})
 
 io.on("connection", (socket) => {
   socket.on("send code", (data2) => {

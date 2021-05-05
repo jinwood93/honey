@@ -64,5 +64,5 @@
 .backimg{
   background-image: url('../src/images/background.jpg');
   width: auto;
-  height: auto;
+  height:500px;
 }

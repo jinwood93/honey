@@ -87,48 +87,17 @@ function First() {
   );
 }
 
-function Advertising(props) {
-  const [slide, setslide] = useState(3);
+function Advertising() {
+
   console.log("자식렌더링");
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     setslide(slide + 1);
-  //   }, 2000);
-  //   setTimeout(() => {
-  //    setslide(slide + 2);
-  //   }, 4000);
-  //   setTimeout(() => {
-  //     setslide(slide + 3);
-  //   }, 6000);
-  // }, []);
-  // useEffect(() => {
-  //   let mounted = true;
-  //   if(mounted==true){
-  //     console.log(slide)
-  //   console.log("자식리렌더링")
-  //   setTimeout(() => {
-  //      setslide(slide + 1);
-  //       }, 2500);
-
-  //     }
-
-  //     return ()=>
-  //     (mounted=false)
-
-  // },[slide])
-
+ 
   return (
     <div>
       <div style={{objectFit:'fill', textAlign: "center",}}>
         
-        {slide % 3 == 0 ? <img src={apeach} className="img"></img> : null}
+        <img src={apeach} className="img"></img>
       </div>
-      <div>
-        {slide % 3 == 1 ? <img src={fish} className="img"></img> : null}
-      </div>
-      <div>
-        {slide % 3 == 2 ? <img src={tera} className="img"></img> : null}
-      </div>
+     
     </div>
   );
 }

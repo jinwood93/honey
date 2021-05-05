@@ -14,10 +14,10 @@ const port = 5000;
 const server = http.createServer(app);
 const io = socketIO(server);
 
-const multer = require("multer");
-const bcrypt = require("bcrypt");
-const { auth } = require("./middleware/auth");
-const upload=multer({dest:'./uploads'})
+import multer from 'multer';
+import bcrypt from 'bcrypt';
+import auth from './middleware/auth';
+const upload = multer({dest:'./uploads'})
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());

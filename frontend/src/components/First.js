@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { React, useEffect } from "react";
 import { Link } from "react-router-dom";
-import bee from "../images/bee.PNG";
+import apeach from "../images/apeach_star.gif";
 import fish from "../images/fish.PNG";
 import tera from "../images/tera.PNG";
 import "../App.css";
@@ -12,19 +12,77 @@ function First() {
   useEffect(() => {
     console.log("부모리렌더링");
   });
-
+  
   const [exit, setexit] = useState(false);
   const onchange = () => {
     setexit(true);
   };
   return (
-    <div>
+    <div
+    style={{
+      height:'100%',
+    }}
+    >
       <Advertising exit={exit}></Advertising>
-
-      <Link to="/login">로그인</Link>
-      <Link to="/register" onClick={onchange}>
-        회원가입
-      </Link>
+      <div
+        style={{
+          margin: "auto",
+          marginTop: "60px",
+          textAlign: "center",
+          backgroundColor:'#DCE5E2',
+          paddingBottom:'25px',
+        
+        }}
+      >
+        <div
+        style={{
+          boxSizing:'border-box',
+          margin:'auto',
+          padding:'20px'
+        }}
+        >
+          <Link
+            to="/login"
+            style={{
+              margin: "auto",
+              textAlign: "center",
+              padding: "4px",
+              fontSize: "18px",
+              textDecoration: "none",
+              color: "#ECCED0",
+              textDecorationLine: "none",
+              border: "1px solid #ECCED0",
+              borderRadius: "5px",
+              backgroundColor:'#B6B7B2',
+            }}
+          >Login</Link>
+          </div>
+          <div style={{
+            margin:'auto',
+            marginTop:'90px',
+            display:'block',
+            textDecoration: "none",
+            textDecorationLine: "none",
+            textAlign:'center',
+            
+          }}>
+            <p>
+              아직 아이디가 없으신가요?
+              <br />
+              <Link to="/register" className="register_login" onClick={onchange}
+              style={{
+                textAlign:'center',
+                margin:'auto',
+                display:'block',
+                textDecoration: "none",
+                textDecorationLine: "none",
+              }}  
+              >
+                Sign-up
+              </Link>
+            </p>
+          </div>
+      </div>
     </div>
   );
 }
@@ -61,9 +119,9 @@ function Advertising(props) {
 
   return (
     <div>
-      <div>
-        -광고 이미지-
-        {slide % 3 == 0 ? <img src={bee} className="img"></img> : null}
+      <div style={{objectFit:'fill', textAlign: "center",}}>
+        
+        {slide % 3 == 0 ? <img src={apeach} className="img"></img> : null}
       </div>
       <div>
         {slide % 3 == 1 ? <img src={fish} className="img"></img> : null}

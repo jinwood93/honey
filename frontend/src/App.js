@@ -6,7 +6,7 @@ import First from "./components/First";
 import Code from "./components/Code";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { Provider } from "react-redux";
-import { createStore } from "redux"
+import { createStore,applyMiddleware,compose  } from "redux"
 import rootReducer from "./reducers/combine";
 import Subinformation from "./components/Subinformation";
 import PasswordChange from "./components/PasswordChange";
@@ -16,10 +16,15 @@ import Calendar from "./client/src/Components/Calender";
 import ChatHomePage from "./pages/ChatHomePage";
 import ChatPage from "./pages/ChatPage";
 import Mypage from "./components/Mypage";
+import Gallary from "./components/Gallary"
 
+import thunk from 'redux-thunk';
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 Modal.setAppElement("#root");
 
-let store = createStore(rootReducer);
+let store = createStore(rootReducer,
+  composeEnhancers(applyMiddleware(thunk)));
 
 function App() {
   console.log("app렌더링");
@@ -47,6 +52,7 @@ function App() {
             ></Route>
             <Route path="/mainpage" exact component={Mainpage}></Route>
             <Route path="/mypage" exact component={Mypage}></Route>
+            <Route exact path="/gallary" component={Gallary} />
           </Provider>
         </Switch>
       </BrowserRouter>

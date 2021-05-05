@@ -59,7 +59,7 @@ return gap;
         </div>
         <Link to="/calendar">캘린더이미지</Link>
         <Link to="/chat">채팅방이미지</Link>
-        <Link to="/album">앨범이미지</Link>
+        <Link to="/gallary">앨범이미지</Link>
         
   </div>);
 

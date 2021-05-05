@@ -14,7 +14,7 @@ const ChatSchema = new Schema({
         require: true,
     },
     message: String,
-    // messageImg: String,
+    messageImg: String,
     messageDate: {
         type: Date,
         default: Date.now,

@@ -13,7 +13,8 @@ const ChatContainer = ({ roomName }) => {
     const [notice, setNotice] = useState('');
     const [modalState, setModalState] = useState(false);
     
-    // const [image, setImage] = useState(null);
+    // 이미지 업로드
+    const [image, setImage] = useState(null);
     
     const socketRef = useRef();
 
@@ -34,6 +35,7 @@ const ChatContainer = ({ roomName }) => {
             const incomingMessage = {
                 ...message,
                 sender: message.senderId === socketRef.current.id,
+                date: message.date, 
             };
             setMessages((messages) => [...messages, incomingMessage]);
         });
@@ -61,9 +63,13 @@ const ChatContainer = ({ roomName }) => {
     }
     
     const sendMessage = (newTextMessage) => {
+        const now = new Date();
+        const date = now.getHours() + ':' + now.getMinutes();
+
         socketRef.current.emit('newText', {
             senderId: socketRef.current.id,
             textMessage: newTextMessage,
+            date: date,
         });
         socketRef.current.emit('typingDone');
     }
@@ -81,22 +87,37 @@ const ChatContainer = ({ roomName }) => {
         setModalState(false);
     }
 
-    // // 이미지업로드
-    // const onImgChange = (e) => {
-    //     setImage(e.target.file);
-    // }
+    // 이미지업로드
+    const onChangeImage = (e) => {
+        setImage(e.target.files[0]);
+    }
 
-    // const onSendImage = async () => {
-    //     const formData = new FormData();
-    //     formData.append('file', image);
-    //     const res = await axios.post('/api/upload', formData);
-    //     console.log(res);
+    const onSendImage = async (ctx) => {
+        const formData = new FormData();
 
-    //     // socketRef.current.emit('newImage', {
-    //     //     senderId: socketRef.current.id,
-    //     //     imageMessage: newImage,
-    //     // });
-    // }
+        formData.append('file', image);
+        // 반환값이 Promise이기 때문에 then으로 객체를 받고 그 안의 data에 접근함
+        await axios.post('/api/upload', formData)
+        .then((res) => {
+            console.log(res);
+            console.log(res.data);
+            console.log(socketRef.current.id);
+
+            socketRef.current.emit('newImage', {
+                senderId: socketRef.current.id,
+                imageMessage: res.data,
+                date: Date.now(),
+            });
+        })
+        .catch((error) => {
+            console.log(error);
+        })
+
+        // console.log(image);
+        // console.log(image.name);
+        
+        closeModal();
+    }
 
     return (
         <>
@@ -110,10 +131,12 @@ const ChatContainer = ({ roomName }) => {
                 onSendMessage={onSendMessage}
                 onKeyPress={onKeyPress}
                 
-                // onImgChange={onImgChange}
-                // onSendImage={onSendImage}
-                // image={image}
+                // 이미지 업로드
+                image={image}
+                onChangeImage={onChangeImage}
+                onSendImage={onSendImage}
 
+                // 모달창
                 modalState={modalState} 
                 openModal={openModal}
                 closeModal={closeModal}

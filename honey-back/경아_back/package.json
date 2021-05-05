@@ -9,6 +9,7 @@
     "dotenv": "^8.2.0",
     "esm": "^3.2.25",
     "koa": "^2.13.1",
+    "koa-body": "^4.2.0",
     "koa-bodyparser": "^4.3.0",
     "koa-multer": "^1.0.2",
     "koa-router": "^10.0.0",

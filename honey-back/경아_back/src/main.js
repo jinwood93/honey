@@ -10,6 +10,8 @@ import mongoose from 'mongoose';
 import api from './routes/index';
 import Chatting from './models/chat';
 
+// import cors from 'cors';
+
 const { PORT, MONGO_URI, NODE_ENV } = process.env;
 
 // 개발 환경일 때만 몽구스가 생성하는 쿼리 내용을 콘솔에서 확인 가능
@@ -46,6 +48,7 @@ const io = socket(server, {
 // server 연결
 router.use('/api', api.routes());
 
+// app.use(cors());
 app.use(bodyParser());
 app.use(router.routes()).use(router.allowedMethods());
 
@@ -92,18 +95,17 @@ io.on('connection', async (socket) => {
         chatting.save();
     });
 
-    // socket.on('newImage', (data) => {
-    //     // 사진 파일
-    //     io.in(room).emit('newMessage', data);
-    //     console.log(`이미지 데이터 ==> ${data.senderId} : ${data.imageMessage}`);
+    socket.on('newImage', (data) => {
+        // 사진 파일
+        io.in(room).emit('newMessage', data);
 
-    //     const chatting = new Chatting({
-    //         room: room,        
-    //         user: data.senderId,
-    //         messageImg: data.textMessage,
-    //     });
-    //     chatting.save();
-    // });
+        const chatting = new Chatting({
+            room: room,        
+            user: data.senderId,
+            messageImg: data.imageMessage,
+        });
+        chatting.save();
+    });
 
     socket.on('disconnect', () => {
         socket.leave(room);

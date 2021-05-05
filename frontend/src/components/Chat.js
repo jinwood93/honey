@@ -7,7 +7,7 @@ const Chat = (props) => {
         room, chats, messages, newMessage, notice, 
         onChangeNewMessage, onSendMessage, onKeyPress, 
         modalState, openModal, closeModal, 
-        onSendImage, onImgChange, image
+        image, onChangeImage, onSendImage
     } = props;
     
     const scrollRef = useRef();
@@ -16,61 +16,89 @@ const Chat = (props) => {
         scrollRef.current.scrollIntoView({ behavior: 'smooth', block: 'end' });
     }, [chats, messages]);
 
-
     return (
         <div className="chatContainer">
             <h1 className="chatRoomName">{room}</h1>
             <div className="messageContainer"  >
                 <ol className="messageList"  ref={scrollRef}>
-                        {chats.map((chat, i) => (
-                            <div
-                                ref={scrollRef}
-                                key={i}
-                            >
-                                <li
-                                    // className={`messageItem ${
-                                    //     message.sender ? "sentId" : "receivedId"
-                                    // }`}
-                                >
-                                    {chat.user}
-                                </li>
-                                <li
-                                    // className={`messageItem ${
-                                    //     message.sender ? "sentMessage" : "receivedMessage"
-                                    // }`}
-                                >
-                                    {chat.message}
-                                </li>
-                            </div>
-                        ))}
+                        {chats.map((chat, i) => 
+                        {
+                            if(chat.messageImg) {
+                                return(
+                                    <div
+                                        ref={scrollRef}
+                                        key={i}
+                                    >
+                                        <li
+                                            // className={`messageItem ${
+                                            //     message.sender ? "sentId" : "receivedId"
+                                            // }`}
+                                        >
+                                            {chat.user}
+                                        </li>
+                                        <li
+                                            // className={`messageItem ${
+                                            //     message.sender ? "sentMessage" : "receivedMessage"
+                                            // }`}
+                                        >
+                                            <img src={`C:\\Users\\viv83\\Desktop\\2021.04.27\\react_inflearn\\server\\${chat.messageImg}`}/>
+                                        </li>
+                                    </div>
+                                );
+                            }
+                            else {
+                                return(
+                                    <div
+                                        ref={scrollRef}
+                                        key={i}
+                                    >
+                                        <li
+                                            // className={`messageItem ${
+                                            //     message.sender ? "sentId" : "receivedId"
+                                            // }`}
+                                        >
+                                            {chat.user}
+                                        </li>
+                                        <li
+                                            // className={`messageItem ${
+                                            //     message.sender ? "sentMessage" : "receivedMessage"
+                                            // }`}
+                                        >
+                                            {chat.message}
+                                        </li>
+                                    </div>
+                                );
+                            }                        
+                        }
+                        )}
                         
                         {messages.map((message, i) => 
-                        // {
-                        //     if(message.imageMessage) {
-                        //         return(
-                        //             <div
-                        //                 ref={scrollRef}
-                        //                 key={i}
-                        //             >
-                        //                 <li
-                        //                     className={`messageItem ${
-                        //                         message.sender ? "sentId" : "receivedId"
-                        //                     }`}
-                        //                 >
-                        //                     {message.senderId}
-                        //                 </li>
-                        //                 <li
-                        //                     className={`messageItem ${
-                        //                         message.sender ? "sentMessage" : "receivedMessage"
-                        //                     }`}
-                        //                 >
-                        //                     <img src=""/>
-                        //                 </li>
-                        //             </div>
-                        //         );
-                        //     }
-                        //     else {return
-                                (
+                        {
+                            if(message.imageMessage) {
+                                return(
+                                    <div
+                                        ref={scrollRef}
+                                        key={i}
+                                    >
+                                        <li
+                                            className={`messageItem ${
+                                                message.sender ? "sentId" : "receivedId"
+                                            }`}
+                                        >
+                                            {message.senderId}
+                                        </li>
+                                        <li
+                                            className={`messageItem ${
+                                                message.sender ? "sentMessage" : "receivedMessage"
+                                            }`}
+                                        >
+                                            <img src={`C:\\Users\\viv83\\Desktop\\2021.04.27\\react_inflearn\\server\\${message.imageMessage}`}/>
+                                        </li>
+                                    </div>
+                                );
+                            }
+                            else {
+                                return(
                                     <div
                                         ref={scrollRef}
                                         key={i}
@@ -88,22 +116,26 @@ const Chat = (props) => {
                                             }`}
                                         >
                                             {message.textMessage}
+                                            {message.date}
                                         </li>
                                     </div>
                                 )
-                        //     }
-                        // }
+                                
+                            }
+                        }
                         )}
                 </ol>
             </div>
             
             <Modal 
+                // 이미지 업로드
+                image={image}
+                onChangeImage={onChangeImage}
+                onSendImage={onSendImage}
+
+                // 모달창
                 modalState={modalState} 
                 closeModal={closeModal} 
-
-                // onSendImage={onSendImage}
-                // onImgChange={onImgChange}
-                // image={image}
             />
             
             <div className="noticeInputChat">{notice}</div>

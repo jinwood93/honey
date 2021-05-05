@@ -28,14 +28,113 @@ body{
   height:500px;
 }
 
-
-
-/* first.js css start */
-
-
-.img{
-  object-fit: fill;
+/* first page Start*/
+.first-body{
+  
+    height:100%;
+    text-align: center;
   
 }
+.first-img{
+  margin: auto;
+  text-align: center;
+  
+}
+.first-form{
+  text-align: center;
+  background-color: #DCE5E2;
+  padding-bottom: 25px;
+  position: absolute;
+  width: 50%;
+  bottom: 25%;
+  left:25%;
+  text-decoration-line: none;
 
-/* first.js css End*/
+}
+#first-form2{
+  box-sizing: border-box;
+  margin: auto;
+  padding: 70px;
+  
+}
+.first-login{
+  margin: auto;
+  text-align: center;
+  padding: 4px;
+  font-size: 18px;
+  text-decoration: none;
+  color: #ECCED0;
+  text-decoration-line: none;
+  border: 1px solid #ECCED0;
+  border-radius: 5px;
+  background-color: #B6B7B2;
+}
+.first-login:hover{
+  text-decoration: none;
+}
+.first-register-info{
+  text-align: center;
+  margin: auto;
+  display: block;
+
+}
+.first-register-button{
+  text-align: center;
+  margin: auto;
+  display: block;
+  
+}
+.first-register-button:hover{
+  text-decoration: none;
+}
+/* first page End*/
+
+/* Login page Start */
+.Login-body{
+  height: 100%;
+  text-align: center;
+  margin: auto;
+}
+.Login-img{
+  margin: auto;
+  width: 100%;
+  background-color: #F9F9F9;
+}
+.Login-thum{
+  width: 375px;
+}
+.Login-info{
+  text-align: center;
+  background-color: #DCE5E2;
+  padding-bottom: 25px;
+  position: absolute;
+  width: 50%;
+  bottom: 25%;
+  left:25%;
+}
+.Login-form{
+  margin: auto;
+  margin-top: 40px;
+  vertical-align: middle;
+  width: 100%;
+}
+.Login-input{
+  text-align: left;
+  margin: 4px;
+}
+/* Login page End */
+
+/* media query Start*/
+/* @media (min-width: 320px){
+  .first-form{
+    display: block;
+    text-align: center;
+    background-color: #DCE5E2;
+    padding-bottom: 25px;
+    width: 320px;
+    
+    bottom: 0;
+    left:0;
+  }
+} */
+/* media query End*/

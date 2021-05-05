@@ -6,6 +6,8 @@ import { useHistory } from "react-router-dom";
 
 import { useDispatch } from "react-redux";
 import { registeremail } from "../actions/reg";
+import apeachWalking from "../images/apeach_walking.gif"
+import "../App.css"
 function Login() {
   let history = useHistory();
   const [help, sethelp] = useState(null);
@@ -30,23 +32,53 @@ function Login() {
     });
   };
   return (
-    <div>
-      <form onSubmit={onsubmit}>
-        이메일:<input type="email" value={email} onChange={eonChange}></input>
-        <div></div>
-        비밀번호:
-        <input type="password" value={password} onChange={ponChange}></input>
-        <div></div>
-        <button type="submit">로그인</button>
-      </form>
+    <div className="Login-body">
+      <div className="Login-info">
+        <div className="Login-img">
+          <img src={apeachWalking} className="Login-thum"></img>
+        </div>
+        <form className="Login-form"
+          onSubmit={onsubmit}
+        >
+          <div
+            style={{
+              textAlign: "center",
+            }}
+          >
+            <div>
+              E-mail:
+              <input className="Login-input"
+                type="email"
+                value={email}
+                onChange={eonChange}
+                
+                placeholder="이메일을 입력해주세요"
+              ></input>
+              <br />
+              Password:
+              <input className="Login-input"
+                type="password"
+                value={password}
+                onChange={ponChange}
+               
+                placeholder="비밀번호를 입력해주세요"
+              ></input>
+            </div>
+          </div>
+          <br />
+          <button type="submit" style={{}}>
+            로그인
+          </button>
+        </form>
 
-      <button
-        onClick={() => {
-          sethelp(true);
-        }}
-      >
-        로그인 정보를 모르시겠나요??
-      </button>
+        <button
+          onClick={() => {
+            sethelp(true);
+          }}
+        >
+          로그인 정보를 모르시겠나요??
+        </button>
+      </div>
       {help === true ? <Modal></Modal> : null}
     </div>
   );

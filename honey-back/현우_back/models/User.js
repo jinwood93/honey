@@ -1,8 +1,9 @@
-const mongoose = require("mongoose");
-const bcrypt = require("bcrypt");
+import mongoose, { Schema } from 'mongoose';
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+
 const saltRounds = 10;
-const jwt = require("jsonwebtoken");
-const userSchema = mongoose.Schema({
+const userSchema  = new Schema({
   username: {
     type: String,
   },
@@ -90,4 +91,4 @@ userSchema.statics.findByToken = function (token, cb) {
 };
 
 const User = mongoose.model("User", userSchema);
-module.exports = { User };
+export default  User;

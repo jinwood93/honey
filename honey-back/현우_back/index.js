@@ -1,22 +1,24 @@
-const express = require("express");
+import express from 'express';
+import cors from 'cors';
+import http from 'http';
+import socketIO from 'socket.io';
+import bodyParser from 'body-parser';
+import cookieParser from 'cookie-parser';
+import config from './config/key';
+import User from './models/User';
+import Couple from './models/Couple';
+import nodemailer from 'nodemailer';
+
 const app = express();
-const cors = require("cors");
-const http = require("http");
-const socketIO = require("socket.io");
 const port = 5000;
 const server = http.createServer(app);
 const io = socketIO(server);
-const bodyParser = require("body-parser");
-const cookieParser = require("cookie-parser");
-const config = require("./config/key");
-const { User } = require("./models/User");
-const { Couple } = require("./models/Couple");
-const nodemailer = require("nodemailer");
 
 const multer = require("multer");
 const bcrypt = require("bcrypt");
 const { auth } = require("./middleware/auth");
 const upload=multer({dest:'./uploads'})
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 app.use(bodyParser.json());

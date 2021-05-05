@@ -1,5 +1,6 @@
-const mongoose = require("mongoose");
-const coupleSchema = mongoose.Schema({
+import mongoose, { Schema } from 'mongoose';
+
+const coupleSchema = new Schema({
   username1: {
     type: String,
    
@@ -35,4 +36,4 @@ const coupleSchema = mongoose.Schema({
 });
 
 const Couple = mongoose.model("Couple", coupleSchema);
-module.exports = { Couple };
+export default Couple;

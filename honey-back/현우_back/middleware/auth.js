@@ -1,4 +1,4 @@
-const {User} = require('../models/User')
+import User from '../models/User';
 let auth =(req,res,next)=>{ 
 
     let token=req.cookies.x_auth;
@@ -15,4 +15,5 @@ User.findByToken(token,(err,user)=>{
  
 })
 }
-module.exports={auth};
+
+export default auth;

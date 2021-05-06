@@ -8,16 +8,13 @@ function Mypage() {
   const [username, setusername] = useState(null);
   const [birth, setbirth] = useState(null);
   const [firstdate, setfirstdate] = useState(null);
-  const [Sex, setSex] = useState(null);
-  const [email, setemail] = useState(null);
+const[change,setchange]=useState(false);
   useEffect(() => {
     axios.get("/first/auth").then((res) => {
       if (res.data.isAuth === false) {
         alert("로그아웃 되었습니다");
         history.push("/login");
       }
-      setemail(res.data.email);
-      setSex(res.data.sex);
       setimg(res.data.profileimage);
       setusername(res.data.username);
       let newbirth = res.data.birth.slice(0, 10);
@@ -48,15 +45,13 @@ function Mypage() {
                     <p className="Mypage-bold">{username}</p>
                     <div className="Mypage-bold">생일</div>
                     <p className="Mypage-high">{birth}</p>
-                    <div className="Mypage-bold">성별</div>
-                    <p className="Mypage-high MyPage-hr">{Sex}</p>
+                    
                 </div>
                 <p className="Mypage-weak">계정 연결 정보</p>
                 <div className="Mypage-bold">처음 만난 날 </div>
                 <p className="Mypage-high">{firstdate}</p>
                 <div className="Mypage-bold">내 계정</div>
-                <p className="Mypage-weak">{email}</p>
-                <div className="Mypage-bold">상대방 계정 </div>
+                {/* <p className="Mypage-weak">{email}</p> */}
                 <p className="Mypage-weak MyPage-hr"></p>
                 <div className="btn-Mypage-form">
                     <div class="btn-mypage"><button type="button" className="btn-logout" onClick={logout}>Logout</button></div>
@@ -65,7 +60,7 @@ function Mypage() {
             </div>
         </div>
     </div>
-)
+  )
 }
 
 export default Mypage;

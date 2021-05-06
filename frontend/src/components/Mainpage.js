@@ -1,8 +1,12 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import "../../src/App.css";
+import '../../src/App.css'
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
+import gallery from "../images/gallery.png";
+import calendar from "../images/calendar.png";
+import chatUi from "../images/peach_ui.png";
+import heart from "../images/heart.png";
 function Mainpage() {
   let history = useHistory();
 
@@ -57,28 +61,31 @@ function Mainpage() {
   }, []);
   const mypagelink = () => {};
   return (
-    <div>
+    <div className="Main-body">
       <div className="backimg">
-        <h2>함께한 날</h2>
-        <h3 style={{ color: "orange" }}>{firstdate}</h3>
-        <nav className="profileimg">
-          <img src={partnerimg} className="user-profileimg"></img>
-        </nav>
-        <Link to="/mypage">
-          <nav className="profileimg">
-            <img
-              src={myimg}
-              className="user-profileimg"
-              onClick={mypagelink}
-            ></img>
-          </nav>
-        </Link>
+        <div className="Main-head">
+          <div className="profileimg"><img src={partnerimg} className="user-profileimg"></img></div>
+          <div className="Main-date">
+            <span>처음 만난 날
+          <p style={{ color: "orange" }}>8일{firstdate}</p>
+              <p><span>이름</span><span><img src={heart}></img></span><span>이름</span></p>
+            </span>
+          </div>
+          <Link to="/mypage" className="profileimg"><img src={myimg} className="user-profileimg Main-myImg"></img></Link>
+        </div>
+        <div className="Main-footer">
+          <div className="Main-ui">
+            <Link to="/calendar"><img src={calendar} className="Main-ui-img" /></Link>
+          </div>
+          <div className="Main-ui">
+            <Link to="/chat"><img src={chatUi} className="Main-ui-img" /></Link>
+          </div>
+          <div className="Main-ui">
+            <Link to="/gallary"><img src={gallery} className="Main-ui-img" /></Link>
+          </div>
+        </div>
       </div>
-      <Link to="/calendar">캘린더이미지</Link>
-      <Link to="/chat">채팅방이미지</Link>
-      <Link to="/gallary">앨범이미지</Link>
-    </div>
-  );
+    </div>);
 }
 
 export default Mainpage;

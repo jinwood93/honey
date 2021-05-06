@@ -85,18 +85,36 @@ first.post("/code", async (ctx) => {
   }
 });
 
-first.post("/lovecode", (ctx) => {
+first.post("/lovecode", async(ctx) => {
+ 
   console.log(ctx.request.body.authCode2, ctx.request.body.authCode1);
 
+console.log(check)
   if (ctx.request.body.authCode2.length == 8) {
-    //   const code = await Couple.findOne({
-    //     authCode2: ctx.request.body.authCode2,
-    //   });
-    // if (!code) {
-    const couple = new Couple(ctx.request.body);
-    couple.save();
-    ctx.body = { success: true };
-    // }
+    check++
+    console.log()
+    if(check==2){
+      const code = await Couple.findOne({
+        authCode2: ctx.request.body.authCode2,
+      });
+      console.log(code);
+
+      if (!code) {
+        console.log("두번")
+      const couple = new Couple(ctx.request.body);
+     const cck= await couple.save();
+     console.log(cck)
+     check=0;
+      ctx.body = { success: true };
+      
+      }
+      else{
+        console.log("여긴")
+        ctx.body={success:false}
+      }
+
+    }
+     else{console.log("this")}
   }
 });
 

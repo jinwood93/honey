@@ -32,7 +32,7 @@ function Register(props) {
       console.log(email, password);
       props.registeremail(email);
       axios
-        .post("/register", { email: email, password: password })
+        .post("/first/register", { email: email, password: password })
         .then((res) => {
           res.data.success === true
             ? history.push("/code")

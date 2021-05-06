@@ -6,7 +6,7 @@ import fs from "fs";
 import path from "path";
 import auth from "../middleware/auth";
 const first = new Router();
-
+let check =0;
 first.get("/", (ctx) => {
   console.log("http://localhost:4000");
 

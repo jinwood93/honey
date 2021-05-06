@@ -4,6 +4,8 @@ import Event from "../models/Event";
 import multer from "koa-multer";
 import fs from "fs";
 import path from "path";
+import moment from"moment";
+
 const work = new Router();
 
 work.get("/", (ctx) => {
@@ -31,9 +33,11 @@ const upload = multer({
 });
 
 work.post("/photos", upload.single("photo"), async (ctx) => {
+  console.log("여기들림")
+  console.log(ctx.req.file.filename)
   try {
-    const photo = new Photo(req.body);
-    const file = ctx.req.file.buffer;
+    const photo = new Photo(ctx.req.body);
+   
     photo.photo = file;
 
     await photo.save();
@@ -64,21 +68,20 @@ work.get("/photos/:id", async (ctx) => {
   }
 });
 
-work.post("/create-event", async (ctx) => {
-  console.log("여기" + ctx);
-  const event = new Event(ctx.req.body);
-  await event.save();
+work.post("/create-event", (ctx) => {
+  
+  const event = new Event(ctx.request.body);
+event.save();
   // res.sendStatus(201);
 });
 
 work.get("/get-events", async (ctx) => {
-  console.log("여긴" + ctx.req.query.start);
-  console.log("아니" + ctx.req.query.end);
+  
   const events = await Event.find({
     start: { $gte: moment(ctx.req.query.start).toDate() },
     end: { $lte: moment(ctx.req.query.end).toDate() },
   });
-
+  console.log(events)
   ctx.body = events;
 });
 

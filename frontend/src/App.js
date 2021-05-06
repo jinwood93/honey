@@ -17,7 +17,7 @@ import ChatHomePage from "./pages/ChatHomePage";
 import ChatPage from "./pages/ChatPage";
 import Mypage from "./components/Mypage";
 import Gallary from "./components/Gallary"
-
+import AppRouter from '../src/router/AppRouter'
 import thunk from 'redux-thunk';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -52,7 +52,7 @@ function App() {
             ></Route>
             <Route path="/mainpage" exact component={Mainpage}></Route>
             <Route path="/mypage" exact component={Mypage}></Route>
-            <Route exact path="/gallary" component={Gallary} />
+            <Route exact path="/gallary" component={AppRouter} />
           </Provider>
         </Switch>
       </BrowserRouter>

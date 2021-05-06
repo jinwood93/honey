@@ -6,7 +6,7 @@ import { useHistory } from "react-router-dom";
 
 import { useDispatch } from "react-redux";
 import { registeremail } from "../actions/reg";
-import apeachWalking from "../images/apeach_walking.gif";
+import apeachCake from "../images/apeach_cake.gif";
 import "../App.css";
 function Login() {
   let history = useHistory();
@@ -40,7 +40,7 @@ function Login() {
           onSubmit={onsubmit}
         >
           <div className="Login-img">
-          <img src={apeachWalking} className="Login-thum"></img>
+          <img src={apeachCake} className="Login-thum"></img>
         </div>
           <div
             style={{

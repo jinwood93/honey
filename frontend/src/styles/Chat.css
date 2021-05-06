@@ -103,7 +103,7 @@ font-family: 'Gothic A1', sans-serif;
     background-color: #ffda8e;
     margin-left: auto;
 }
-.sentId {
+.sentId, .sentDate {
     margin-left: auto;
 }
 
@@ -112,7 +112,7 @@ font-family: 'Gothic A1', sans-serif;
     background-color: #8b8687;
     margin-right: auto;
 }
-.receivedId {
+.receivedId, .receivedDate {
     margin-right: auto;
 }
 

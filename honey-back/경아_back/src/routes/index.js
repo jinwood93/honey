@@ -1,6 +1,7 @@
 import Router from 'koa-router';
 import multer from 'koa-multer';
 import fs from 'fs';
+import path from 'path';
 
 const api = new Router();
 
@@ -21,17 +22,17 @@ const upload = multer({
             cb(null, 'src/uploads/');
         },
         filename(req, file, cb) {
-            cb(null, `${Date.now()}_${file.originalname}`)
+            const ext = path.extname(file.originalname);
+            cb(null, path.basename(file.originalname, ext) + Date.now() + ext);
         },
     })
 });
 
-api.post('/upload', upload.single('file'), (ctx) => {
-    // const imageName = ctx.req.file.filename; 
-    const imageName = ctx.req.file.path; 
-    
-    ctx.body = imageName;
+api.post('/uploads', upload.single('file'), (ctx) => {
+    const imageName = ctx.req.file.filename; 
+   
     console.log(`멀터 ===> 파일이름 ===> ${ctx.req.file.filename}`);
+    ctx.body = imageName;
 });
 
 export default api;

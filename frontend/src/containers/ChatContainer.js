@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { withRouter } from 'react-router';
+import axios from 'axios';
 import io from 'socket.io-client';
 import Chat from '../components/Chat';
-import axios from 'axios';
 
 const ChatContainer = ({ roomName }) => {
 
@@ -10,19 +10,14 @@ const ChatContainer = ({ roomName }) => {
     const [chats, setChats] = useState([]);
     const [messages, setMessages] = useState([]);
     const [newMessage, setNewMessage] = useState('');
+    const [image, setImage] = useState(null);
     const [notice, setNotice] = useState('');
     const [modalState, setModalState] = useState(false);
-    
-    // 이미지 업로드
-    const [image, setImage] = useState(null);
     
     const socketRef = useRef();
 
     useEffect(async () => {
         // 네임스페이스
-        // 네임스페이스를 연결할 때 전송되는 추가 쿼리 매개변수
-        // socket.handshake.query서버 측 객체에서 발견됨
-        // 서버에서 /room 을 통해 보낸 데이터만 받을 수 있음 ==> 방 구분
         socketRef.current = io("http://localhost:4000", {
             query: {room},
         });
@@ -63,13 +58,10 @@ const ChatContainer = ({ roomName }) => {
     }
     
     const sendMessage = (newTextMessage) => {
-        const now = new Date();
-        const date = now.getHours() + ':' + now.getMinutes();
-
         socketRef.current.emit('newText', {
             senderId: socketRef.current.id,
             textMessage: newTextMessage,
-            date: date,
+            date: Date(),
         });
         socketRef.current.emit('typingDone');
     }
@@ -87,7 +79,6 @@ const ChatContainer = ({ roomName }) => {
         setModalState(false);
     }
 
-    // 이미지업로드
     const onChangeImage = (e) => {
         setImage(e.target.files[0]);
     }
@@ -96,8 +87,8 @@ const ChatContainer = ({ roomName }) => {
         const formData = new FormData();
 
         formData.append('file', image);
-        // 반환값이 Promise이기 때문에 then으로 객체를 받고 그 안의 data에 접근함
-        await axios.post('/api/upload', formData)
+
+        await axios.post('/api/uploads', formData)
         .then((res) => {
             console.log(res);
             console.log(res.data);
@@ -106,19 +97,16 @@ const ChatContainer = ({ roomName }) => {
             socketRef.current.emit('newImage', {
                 senderId: socketRef.current.id,
                 imageMessage: res.data,
-                date: Date.now(),
+                date: Date(),
             });
         })
         .catch((error) => {
             console.log(error);
-        })
-
-        // console.log(image);
-        // console.log(image.name);
+        });
         
         closeModal();
     }
-
+    
     return (
         <>
             <Chat

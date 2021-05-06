@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import moment from 'moment';
 import Modal from './Modal';
 import '../styles/Chat.css';
 
@@ -7,10 +8,14 @@ const Chat = (props) => {
         room, chats, messages, newMessage, notice, 
         onChangeNewMessage, onSendMessage, onKeyPress, 
         modalState, openModal, closeModal, 
-        image, onChangeImage, onSendImage
+        image, onChangeImage, onSendImage,
     } = props;
     
     const scrollRef = useRef();
+    if(modalState) 
+    const modal = modalState;
+    console.log(modal);
+    console.log(modalState);
     
     useEffect(() => {
         scrollRef.current.scrollIntoView({ behavior: 'smooth', block: 'end' });
@@ -29,19 +34,26 @@ const Chat = (props) => {
                                         ref={scrollRef}
                                         key={i}
                                     >
-                                        <li
+                                        <div
                                             // className={`messageItem ${
                                             //     message.sender ? "sentId" : "receivedId"
                                             // }`}
                                         >
                                             {chat.user}
+                                        </div>
+                                        <li
+                                            // className={`messageItem ${
+                                            //     message.sender ? "sentDate" : "receivedDate"
+                                            // }`}
+                                        >
+                                            {moment(chat.messageDate).format('LT')}
                                         </li>
                                         <li
                                             // className={`messageItem ${
                                             //     message.sender ? "sentMessage" : "receivedMessage"
                                             // }`}
                                         >
-                                            <img src={`C:\\Users\\viv83\\Desktop\\2021.04.27\\react_inflearn\\server\\${chat.messageImg}`}/>
+                                            <img src={`/uploads/${chat.messageImg}`} style={{width: '100%', height: '100%'}}/>
                                         </li>
                                     </div>
                                 );
@@ -52,12 +64,19 @@ const Chat = (props) => {
                                         ref={scrollRef}
                                         key={i}
                                     >
-                                        <li
+                                        <div
                                             // className={`messageItem ${
                                             //     message.sender ? "sentId" : "receivedId"
                                             // }`}
                                         >
                                             {chat.user}
+                                        </div>
+                                        <li
+                                            // className={`messageItem ${
+                                            //     message.sender ? "sentDate" : "receivedDate"
+                                            // }`}
+                                        >
+                                            {moment(chat.messageDate).format('LT')}
                                         </li>
                                         <li
                                             // className={`messageItem ${
@@ -80,19 +99,26 @@ const Chat = (props) => {
                                         ref={scrollRef}
                                         key={i}
                                     >
-                                        <li
+                                        <div
                                             className={`messageItem ${
                                                 message.sender ? "sentId" : "receivedId"
                                             }`}
                                         >
                                             {message.senderId}
+                                        </div>
+                                        <li
+                                            className={`messageItem ${
+                                                message.sender ? "sentDate" : "receivedDate"
+                                            }`}
+                                        >
+                                            {moment(message.date).format('LT')}
                                         </li>
                                         <li
                                             className={`messageItem ${
                                                 message.sender ? "sentMessage" : "receivedMessage"
                                             }`}
                                         >
-                                            <img src={`C:\\Users\\viv83\\Desktop\\2021.04.27\\react_inflearn\\server\\${message.imageMessage}`}/>
+                                            <img src={`/uploads/${message.imageMessage}`} style={{width: '100%', height: '100%'}}/>
                                         </li>
                                     </div>
                                 );
@@ -103,12 +129,19 @@ const Chat = (props) => {
                                         ref={scrollRef}
                                         key={i}
                                     >
-                                        <li
+                                        <div
                                             className={`messageItem ${
                                                 message.sender ? "sentId" : "receivedId"
                                             }`}
                                         >
                                             {message.senderId}
+                                        </div>
+                                        <li
+                                            className={`messageItem ${
+                                                message.sender ? "sentDate" : "receivedDate"
+                                            }`}
+                                        >
+                                            {moment(message.date).format('LT')}
                                         </li>
                                         <li
                                             className={`messageItem ${
@@ -116,7 +149,6 @@ const Chat = (props) => {
                                             }`}
                                         >
                                             {message.textMessage}
-                                            {message.date}
                                         </li>
                                     </div>
                                 )
@@ -140,17 +172,25 @@ const Chat = (props) => {
             
             <div className="noticeInputChat">{notice}</div>
             <div className="textArea">
-                <button className="imageItem" onClick={ openModal }>+</button>
-                <textarea
-                    placeholder="Text Message"
-                    value={newMessage}
-                    onChange={onChangeNewMessage}
-                    onKeyPress={onKeyPress}
-                    className="textMessage"
-                />
-                <button className="sendMessage" onClick={onSendMessage}>
-                    SEND
-                </button>
+                {/* <fieldset {`messageItem ${modalState? 'disabled' : ''}`}> */}
+                <fieldset {`${modal}`? 
+            (
+                    <button className="sendImage" onClick={onSendImage}>
+                        SEND
+                    </button>)
+            : null}>
+                    <button className="imageItem" onClick={openModal}>+</button>
+                    <textarea
+                        placeholder="Text Message"
+                        value={newMessage}
+                        onChange={onChangeNewMessage}
+                        onKeyPress={onKeyPress}
+                        className="textMessage"
+                    />
+                    <button className="sendMessage" onClick={onSendMessage}>
+                        SEND
+                    </button>
+                </fieldset>
             </div>
         </div>
     )

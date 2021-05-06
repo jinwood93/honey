@@ -1,29 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import '../styles/Modal.css';
-import axios from 'axios';
 
 const Modal = ({ modalState, closeModal, image, onChangeImage, onSendImage }) => {
-
-    // const [image, setImage] = useState(null);
-
-    // const onChangeImage = (e) => {
-    //     setImage(e.target.files[0]);
-    // }
-
-    // const onSendImage = async () => {
-    //     const formData = new FormData();
-
-    //     formData.append('file', image);
-    //     await axios.post('/api/upload', formData);
-
-    //     // socketRef.current.emit('newImage', {
-    //     //     senderId: socketRef.current.id,
-    //     //     imageMessage: newImage,
-    //     // });
-        
-    //     closeModal();
-    // }
-
     return (
         <div className={ modalState? 'openModal' : 'nomodal'}>
             { modalState? 

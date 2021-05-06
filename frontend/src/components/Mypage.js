@@ -42,7 +42,7 @@ function Mypage() {
                     <div className="Mypage-bold">생일</div>
                     <p className="Mypage-high">김진우{birth}</p>
                     <div className="Mypage-bold">성별</div>
-                    <p className="Mypage-high MyPage-hr">김진우{Sex}</p>
+                    {/* <p className="Mypage-high MyPage-hr">김진우{Sex}</p> */}
                 </div>
                 <p className="Mypage-weak">계정 연결 정보</p>
                 <div className="Mypage-bold">처음 만난 날 </div>
@@ -53,7 +53,7 @@ function Mypage() {
                 <p className="Mypage-weak MyPage-hr">김진우</p>
                 <div className="btn-Mypage-form">
                     <div class="btn-mypage"><button type="button" className="btn-logout" onClick={logout}>Logout</button></div>
-                    <div class="btn-mypage"><button type="button" className="btn-pwChange" onClick={pwdChange}>Change Password</button></div>
+                    {/* <div class="btn-mypage"><button type="button" className="btn-pwChange" onClick={pwdChange}>Change Password</button></div> */}
                 </div>
             </div>
         </div>

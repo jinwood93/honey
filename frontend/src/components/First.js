@@ -16,13 +16,11 @@ function First() {
     setexit(true);
   };
   return (
-    <div className="first-body"
-      
-    >
-      <div className="first-img">
-        <img src={apeach} className="img"></img>
-      </div>
+    <div className="first-body">
       <div className="first-form">
+        <div className="first-img">
+      <img src={apeach} className="first-thum"></img>
+      </div>
         <div id="first-form2">
           <Link className="first-login"
             to="/login">

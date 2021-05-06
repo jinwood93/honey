@@ -4,6 +4,8 @@ import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 import { registeremail } from "../actions/reg";
+import "../App.css";
+import apeachFlower from "../images/apeach_flower.gif"
 function Register(props) {
   let history = useHistory();
 
@@ -40,25 +42,36 @@ function Register(props) {
   };
 
   return (
-    <div>
-      <h1>허니챗에 처음 오신 것을 환영 합니다!</h1>
-      <h1>회원으로 가입해주세요</h1>
-      <form onSubmit={onsubmit}>
-        <input
+    <div className="Register-body">
+      <form onSubmit={onsubmit} className="Register-form">
+      <div className="Register-img">
+          <img src={apeachFlower} className="Register-thum"></img>
+        </div>
+        <span className="Register-word">PEACH에 처음 오신 것을 환영 합니다!</span>
+      <p className="Register-word">회원으로 가입해주세요</p>
+      <div className="Register-info">
+        <li className="Register-li Register-li1">
+          <label>E-mail : </label>
+        <input className="Register-input"
           type="text"
           name="email"
-          placeholder="이메일"
+          placeholder="이메일을 입력해주세요"
           value={email}
           onChange={onChange}
         ></input>
-        <input
+        </li>
+        <li className="Register-li">
+        <label>Password : </label>
+        <input className="Register-input"
           type="password"
           name="password"
-          placeholder="비밀번호"
+          placeholder="비밀번호를 입력해주세요"
           value={password}
           onChange={onChange}
         ></input>
-        <button type="submit">가입하기</button>
+        </li>
+        </div>
+        <button type="submit" className="btn-register">Sign up</button>
       </form>
     </div>
   );

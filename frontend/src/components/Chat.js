@@ -173,7 +173,7 @@ const Chat = (props) => {
             <div className="noticeInputChat">{notice}</div>
             <div className="textArea">
                 {/* <fieldset {`messageItem ${modalState? 'disabled' : ''}`}> */}
-                <fieldset {`${modal}`? 
+                <fieldset {...`${modal}`? 
             (
                     <button className="sendImage" onClick={onSendImage}>
                         SEND

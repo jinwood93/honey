@@ -6,7 +6,7 @@ import { useHistory } from "react-router-dom";
 
 import { useDispatch } from "react-redux";
 import { registeremail } from "../actions/reg";
-import apeachWalking from "../images/apeach_walking.gif"
+import apeachWalking from "../images/apeach_cake.gif";
 import "../App.css"
 function Login() {
   let history = useHistory();
@@ -34,19 +34,21 @@ function Login() {
   return (
     <div className="Login-body">
       <div className="Login-info">
-        <div className="Login-img">
-          <img src={apeachWalking} className="Login-thum"></img>
-        </div>
+        
         <form className="Login-form"
           onSubmit={onsubmit}
         >
+          <div className="Login-img">
+          <img src={apeachWalking} className="Login-thum"></img>
+        </div>
           <div
             style={{
               textAlign: "center",
             }}
           >
             <div>
-              E-mail:
+              <li className="Login-li Login-li1">
+              <label>E-mail :</label>
               <input className="Login-input"
                 type="email"
                 value={email}
@@ -54,8 +56,9 @@ function Login() {
                 
                 placeholder="이메일을 입력해주세요"
               ></input>
-              <br />
-              Password:
+              </li>
+              <li className="Login-li">
+              <label>Password :</label>
               <input className="Login-input"
                 type="password"
                 value={password}
@@ -63,23 +66,29 @@ function Login() {
                
                 placeholder="비밀번호를 입력해주세요"
               ></input>
+              </li>
             </div>
           </div>
-          <br />
-          <button type="submit" style={{}}>
+          
+          <button type="submit" className="Login-button">
             로그인
           </button>
-        </form>
-
-        <button
+          <br/>
+          <button
+          className="Login-missing-button"
           onClick={() => {
             sethelp(true);
           }}
         >
-          로그인 정보를 모르시겠나요??
+          비밀번호를 잊어버렸습니다
         </button>
+        
+        {help === true ? <Modal></Modal> : null}
+        </form>
+            
+        
       </div>
-      {help === true ? <Modal></Modal> : null}
+     
     </div>
   );
 }
@@ -115,17 +124,18 @@ function Modal() {
   };
 
   return (
-    <div>
-      이메일:
-      <input
+    <div className="Login-missing">
+      E-mail:
+      <input className="missing-input"
         type="text"
         value={email}
+        placeholder="찾을 이메일 주소"
         onChange={(e) => {
           setemail(e.target.value);
         }}
       ></input>
-      <button onClick={findmypassword}>비밀 번호 찾기</button>
-      <p></p>
+      <button onClick={findmypassword} className="btn-find-pw">비밀 번호 찾기</button>
+      
       {check === true ? (
         <input value={checkuser} onChange={changecheck}></input>
       ) : null}

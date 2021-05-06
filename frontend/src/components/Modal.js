@@ -14,7 +14,6 @@ const Modal = ({ modalState, closeModal, image, onChangeImage, onSendImage }) =>
                 <div className="modalMiddle">
                     <input
                         type="file"
-                        // value={image}
                         onChange={onChangeImage}
                         accept=".png, .jpg, .jpeg, .gif"
                         className="imageMessage"

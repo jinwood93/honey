@@ -1,3 +1,9 @@
+/* 
+주아 
+font-family: 'Jua', sans-serif;
+*/
+@import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
+
 button {
     outline: none;
     cursor: pointer;
@@ -23,12 +29,13 @@ button {
     background-color: #fff;
     animation: modal-show .3s;
     overflow: hidden;
+    border: 2px solid #FFC5C7;
 }
 
 .modalTop {
     position: relative;
     padding: 16px 64px 16px 16px;
-    background-color: #ffda8e;
+    background-color: #FFC5C7;
     font-weight: 700;
 }
 
@@ -37,17 +44,16 @@ button {
     top: 10px;
     right: 15px;
     width: 30px;
+    font-family: 'Jua', sans-serif;
     font-size: 21px;
     font-weight: 700;
     text-align: center;
-    color: #999;
+    color: #E41549;
     background-color: transparent;
 }
 
 .modalMiddle {
     padding: 16px;
-    border-bottom: 1px solid #dee2e6;
-    border-top: 1px solid #dee2e6;
 }
 
 .modalBttom {
@@ -58,9 +64,20 @@ button {
 .sendImage {
     padding: 6px 12px;
     color: #fff;
-    background-color: #6c757d;
+    background-color: #FFC5C7;
     border-radius: 5px;
-    font-size: 13px;
+    font-family: 'Jua', sans-serif;
+    font-size: 20px;
+}
+.sendImage:hover, .close:hover {
+    color: #E41549;
+}
+
+.imageMessage {
+    color: #413d3e;
+    font-family: 'Jua', sans-serif;
+    font-weight: 500;
+    font-size: 20px;
 }
 
 @keyframes modal-show {

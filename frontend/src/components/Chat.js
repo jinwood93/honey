@@ -2,6 +2,8 @@ import React, { useEffect, useRef } from 'react';
 import moment from 'moment';
 import Modal from './Modal';
 import '../styles/Chat.css';
+import upload from '../images/upload.png';
+import sendButton from '../images/send.png';
 
 const Chat = (props) => {
     const { 
@@ -12,10 +14,6 @@ const Chat = (props) => {
     } = props;
     
     const scrollRef = useRef();
-    if(modalState) 
-    const modal = modalState;
-    console.log(modal);
-    console.log(modalState);
     
     useEffect(() => {
         scrollRef.current.scrollIntoView({ behavior: 'smooth', block: 'end' });
@@ -41,20 +39,20 @@ const Chat = (props) => {
                                         >
                                             {chat.user}
                                         </div>
-                                        <li
+                                        <div
                                             // className={`messageItem ${
                                             //     message.sender ? "sentDate" : "receivedDate"
                                             // }`}
                                         >
                                             {moment(chat.messageDate).format('LT')}
-                                        </li>
-                                        <li
+                                        </div>
+                                        <div
                                             // className={`messageItem ${
                                             //     message.sender ? "sentMessage" : "receivedMessage"
                                             // }`}
                                         >
                                             <img src={`/uploads/${chat.messageImg}`} style={{width: '100%', height: '100%'}}/>
-                                        </li>
+                                        </div>
                                     </div>
                                 );
                             }
@@ -71,20 +69,20 @@ const Chat = (props) => {
                                         >
                                             {chat.user}
                                         </div>
-                                        <li
+                                        <div
                                             // className={`messageItem ${
                                             //     message.sender ? "sentDate" : "receivedDate"
                                             // }`}
                                         >
                                             {moment(chat.messageDate).format('LT')}
-                                        </li>
-                                        <li
+                                        </div>
+                                        <div
                                             // className={`messageItem ${
                                             //     message.sender ? "sentMessage" : "receivedMessage"
                                             // }`}
                                         >
                                             {chat.message}
-                                        </li>
+                                        </div>
                                     </div>
                                 );
                             }                        
@@ -106,20 +104,20 @@ const Chat = (props) => {
                                         >
                                             {message.senderId}
                                         </div>
-                                        <li
+                                        <div
                                             className={`messageItem ${
                                                 message.sender ? "sentDate" : "receivedDate"
                                             }`}
                                         >
                                             {moment(message.date).format('LT')}
-                                        </li>
-                                        <li
+                                        </div>
+                                        <div
                                             className={`messageItem ${
                                                 message.sender ? "sentMessage" : "receivedMessage"
                                             }`}
                                         >
                                             <img src={`/uploads/${message.imageMessage}`} style={{width: '100%', height: '100%'}}/>
-                                        </li>
+                                        </div>
                                     </div>
                                 );
                             }
@@ -136,20 +134,20 @@ const Chat = (props) => {
                                         >
                                             {message.senderId}
                                         </div>
-                                        <li
+                                        <div
                                             className={`messageItem ${
                                                 message.sender ? "sentDate" : "receivedDate"
                                             }`}
                                         >
                                             {moment(message.date).format('LT')}
-                                        </li>
-                                        <li
+                                        </div>
+                                        <div
                                             className={`messageItem ${
                                                 message.sender ? "sentMessage" : "receivedMessage"
                                             }`}
                                         >
                                             {message.textMessage}
-                                        </li>
+                                        </div>
                                     </div>
                                 )
                                 
@@ -172,25 +170,20 @@ const Chat = (props) => {
             
             <div className="noticeInputChat">{notice}</div>
             <div className="textArea">
-                {/* <fieldset {`messageItem ${modalState? 'disabled' : ''}`}> */}
-                <fieldset {...`${modal}`? 
-            (
-                    <button className="sendImage" onClick={onSendImage}>
-                        SEND
-                    </button>)
-            : null}>
-                    <button className="imageItem" onClick={openModal}>+</button>
-                    <textarea
-                        placeholder="Text Message"
-                        value={newMessage}
-                        onChange={onChangeNewMessage}
-                        onKeyPress={onKeyPress}
-                        className="textMessage"
-                    />
-                    <button className="sendMessage" onClick={onSendMessage}>
-                        SEND
-                    </button>
-                </fieldset>
+                <button className="imageItem" onClick={openModal}>
+                    <img src={upload} className="upload"/>
+                </button>
+                <textarea
+                    placeholder="Text Message"
+                    value={newMessage}
+                    onChange={onChangeNewMessage}
+                    onKeyPress={onKeyPress}
+                    className="textMessage"
+                    disabled={modalState? true:false}
+                />
+                <button className="sendMessage" onClick={onSendMessage} disabled={modalState? true:false}>
+                    <img src={sendButton} className="sendButton"/>
+                </button>
             </div>
         </div>
     )

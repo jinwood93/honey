@@ -6,7 +6,8 @@ import socketio from "socket.io-client";
 import { useHistory } from "react-router-dom";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
-import love from "../images/love.gif";
+// import love from "../images/love.gif";
+import apeachWalk from "../images/apeach_walking.gif";
 function Code(props) {
   let history = useHistory();
   console.log("gg");
@@ -53,7 +54,7 @@ function Code(props) {
                 : console.log("커플실패");
             });
         } else if (message === false) {
-          alert("연결을 거부했습니다");
+          alert("아쉽게도 인연이 맺어지지 못했습니다ㅠ");
         } else {
           alert("타입이잘못됨");
         }
@@ -86,17 +87,20 @@ function Code(props) {
   });
 
   return (
-    <div>
-      <h1>서로의 코드를 입력하여 연결해 주세요</h1>
-      <h4>내 초대 코드</h4>
+    <div className="code-body">
+      <div className="code-connect">
+      {display === true ? <img src={apeachWalk} className="code-thum"></img> : null}
+      {display === true ? <p>어피치가 코드를 전달중입니다 !</p> : null}
+      <p>서로의 코드를 입력하여 연결해 주세요</p>
+      </div>
+      <div className="code-form">
+      <p className="code-invite">내 초대 코드</p>
       <input type="text" readOnly value={Code}></input>
-      <h4>상대방 초대코드를 전달받으셨나요?</h4>
+      <p className="code-chk">상대방 초대코드를 전달받으셨나요?</p>
       <input type="text" value={uCode} onChange={lovecode}></input>
-      <button onClick={conn}>연결하기</button>
-      <h2>{props.state.email}</h2>
-      <p></p>
-      {display === true ? <img src={love}></img> : null}
-      {display === true ? <h3>연결중</h3> : null}
+      <div><button onClick={conn} className="btn-connect">연결하기</button></div>
+      {/* <h2>{props.state.email}</h2> */}
+      </div>
     </div>
   );
 }

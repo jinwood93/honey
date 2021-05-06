@@ -4,6 +4,7 @@ import axios from "axios";
 import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
+import apeachHug from "../images/apeach_hug.gif";
 function Subinformation() {
   const email = useSelector((store) => store.registeremailReducer.email);
   let history = useHistory();
@@ -67,65 +68,76 @@ function Subinformation() {
   };
 
   return (
-    <div>
-      연결 성공!
-      <p></p>
-      프로필을 입력해주세요.
-      <p></p>
+    <div className="connect-body">
+      <div>
+        <img src={apeachHug} className="connect-thum"></img>
+      </div>
       <form onSubmit={onsubmit}>
-        <img
-          src={imgBase64}
-          style={{
-            backgroundColor: "#efefef",
-            width: "150px",
-            height: "150px",
-          }}
-        ></img>
-        <input type="file" name="file" onChange={handleChangeFile}></input>
-        남성
-        <input
-          type="radio"
-          name="sex"
-          value="남성"
-          onClick={(e) => {
-            setSex(e.target.value);
-          }}
-        ></input>
-        여성
-        <input
-          type="radio"
-          name="sex"
-          value="여성"
-          onClick={(e) => {
-            setSex(e.target.value);
-          }}
-        ></input>
-        <p></p>
-        이름
-        <input
+        <div>
+          <img
+            src={imgBase64}
+            style={{
+              backgroundColor: "#efefef",
+              width: "157px",
+              height: "150px",
+            }}
+          ></img>
+          <span><input type="file" name="file" onChange={handleChangeFile} className="btn-connect-file"></input></span>
+        </div>
+        <div className="connect-form">
+        <li className="connect-sex connect-li" >
+          <label>Gender : </label>
+          <span>
+            male
+            <input className="connect-input"
+              type="radio"
+              name="sex"
+              value="남성"
+              onClick={(e) => {
+                setSex(e.target.value);
+              }}
+            />
+          </span>
+          <span>
+            female
+            <input className="connect-input"
+              type="radio"
+              name="sex"
+              value="여성"
+              onClick={(e) => {
+                setSex(e.target.value);
+              }}
+            />
+          </span>
+        </li>
+        <li className="connect-li"> <label>Name : </label>
+        <input className="connect-input"
           type="text"
           value={Username}
           onChange={(e) => {
             setUsername(e.target.value);
           }}
         ></input>
-        <p></p>
-        생일
-        <input
+        </li>
+        <li className="connect-li"><label>Birth : </label>
+        <input className="connect-input"
           type="date"
           onChange={(e) => {
             setBirth(e.target.value);
           }}
         ></input>
-        <p></p>
-        처음만난날
-        <input
+        </li>
+        
+        <li className="connect-li"><label>First date : </label>
+        <input className="connect-input"
           type="date"
           onChange={(e) => {
             setFirstDate(e.target.value);
           }}
         ></input>
-        <button type="submit">작성완료</button>
+        </li>
+        </div>
+        <button className="btn-connect-reg"type="submit">작성완료</button>
       </form>
     </div>
   );

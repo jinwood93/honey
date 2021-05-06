@@ -9,7 +9,8 @@ import chatUi from "../images/peach_ui.png";
 import heart from "../images/heart.png";
 function Mainpage() {
   let history = useHistory();
-
+  const [username, setusername] = useState(null);
+  const [partnerName, setpartnerName] = useState(null);
   const [firstdate, setfirstdate] = useState(null);
   const [myimg, setmyimg] = useState(null);
   const [partnerimg, setpartnerimg] = useState(null);
@@ -20,6 +21,7 @@ function Mainpage() {
         alert("로그인을 다시해주세요");
         history.push("/login");
       }
+      setusername(res.data.username);
       setmyimg(res.data.profileimage);
       let day = res.data.firstdate;
       let newday = day.replace(/-/gi, "");
@@ -55,6 +57,7 @@ function Mainpage() {
             .then((res) => {
               console.log(res.data);
               setpartnerimg(res.data.partnerimg);
+              setpartnerName(res.data.partnerName);
             });
         });
     });
@@ -67,8 +70,8 @@ function Mainpage() {
           <div className="profileimg"><img src={partnerimg} className="user-profileimg"></img></div>
           <div className="Main-date">
             <span>처음 만난 날
-          <p style={{ color: "orange" }}>8일{firstdate}</p>
-              <p><span>이름</span><span><img src={heart}></img></span><span>이름</span></p>
+          <p style={{ color: "orange" }}>{firstdate}</p>
+              <p><span>{partnerName}</span><span><img src={heart}></img></span><span>{username}</span></p>
             </span>
           </div>
           <Link to="/mypage" className="profileimg"><img src={myimg} className="user-profileimg Main-myImg"></img></Link>

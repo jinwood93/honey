@@ -6,8 +6,8 @@ import { useHistory } from "react-router-dom";
 
 import { useDispatch } from "react-redux";
 import { registeremail } from "../actions/reg";
-import apeachWalking from "../images/apeach_cake.gif";
-import "../App.css"
+import apeachWalking from "../images/apeach_walking.gif";
+import "../App.css";
 function Login() {
   let history = useHistory();
   const [help, sethelp] = useState(null);
@@ -22,73 +22,63 @@ function Login() {
   };
   const onsubmit = (e) => {
     e.preventDefault();
-    axios.post("/login", { email: email, password: password }).then((res) => {
-      if (res.data.loginSuccess === true) {
-        
-        history.push("/mainpage");
-      } else {
-        alert(res.data.message);
-      }
-    });
+    axios
+      .post("/first/login", { email: email, password: password })
+      .then((res) => {
+        if (res.data.loginSuccess === true) {
+          history.push("/mainpage");
+        } else {
+          alert(res.data.message);
+        }
+      });
   };
   return (
     <div className="Login-body">
       <div className="Login-info">
-        
-        <form className="Login-form"
-          onSubmit={onsubmit}
-        >
-          <div className="Login-img">
+        <div className="Login-img">
           <img src={apeachWalking} className="Login-thum"></img>
         </div>
+        <form className="Login-form" onSubmit={onsubmit}>
           <div
             style={{
               textAlign: "center",
             }}
           >
             <div>
-              <li className="Login-li Login-li1">
-              <label>E-mail :</label>
-              <input className="Login-input"
+              E-mail:
+              <input
+                className="Login-input"
                 type="email"
                 value={email}
                 onChange={eonChange}
-                
                 placeholder="이메일을 입력해주세요"
               ></input>
-              </li>
-              <li className="Login-li">
-              <label>Password :</label>
-              <input className="Login-input"
+              <br />
+              Password:
+              <input
+                className="Login-input"
                 type="password"
                 value={password}
                 onChange={ponChange}
-               
                 placeholder="비밀번호를 입력해주세요"
               ></input>
-              </li>
             </div>
           </div>
-          
-          <button type="submit" className="Login-button">
+          <br />
+          <button type="submit" style={{}}>
             로그인
           </button>
-          <br/>
-          <button
-          className="Login-missing-button"
+        </form>
+
+        <button
           onClick={() => {
             sethelp(true);
           }}
         >
-          비밀번호를 잊어버렸습니다
+          로그인 정보를 모르시겠나요??
         </button>
-        
-        {help === true ? <Modal></Modal> : null}
-        </form>
-            
-        
       </div>
-     
+      {help === true ? <Modal></Modal> : null}
     </div>
   );
 }
@@ -101,7 +91,7 @@ function Modal() {
   const dispatch = useDispatch();
 
   const findmypassword = () => {
-    axios.post("/findmypassword", { email: email }).then((res) => {
+    axios.post("/first/findmypassword", { email: email }).then((res) => {
       alert(res.data.text);
       setcheck(res.data.check);
     });
@@ -109,7 +99,7 @@ function Modal() {
 
   const sendemail = (e) => {
     e.preventDefault();
-    axios.post("/sendemail", { checkuser: checkuser }).then((res) => {
+    axios.post("/first/sendemail", { checkuser: checkuser }).then((res) => {
       if (res.data.auth == true) {
         dispatch(registeremail(email));
         history.push("/passwordchange");
@@ -124,18 +114,17 @@ function Modal() {
   };
 
   return (
-    <div className="Login-missing">
-      E-mail:
-      <input className="missing-input"
+    <div>
+      이메일:
+      <input
         type="text"
         value={email}
-        placeholder="찾을 이메일 주소"
         onChange={(e) => {
           setemail(e.target.value);
         }}
       ></input>
-      <button onClick={findmypassword} className="btn-find-pw">비밀 번호 찾기</button>
-      
+      <button onClick={findmypassword}>비밀 번호 찾기</button>
+      <p></p>
       {check === true ? (
         <input value={checkuser} onChange={changecheck}></input>
       ) : null}

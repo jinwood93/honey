@@ -1,23 +1,18 @@
-import mongoose, { Schema } from 'mongoose';
-
-const coupleSchema = new Schema({
+import mongoose from "mongoose";
+const coupleSchema = mongoose.Schema({
   username1: {
     type: String,
-   
   },
   birth1: {
     type: Date,
     default: Date.now,
-    
   },
   username2: {
     type: String,
-    
   },
   birth2: {
     type: Date,
     default: Date.now,
-    
   },
   anniversary: {
     type: Date,
@@ -32,7 +27,6 @@ const coupleSchema = new Schema({
     type: Number,
   },
   image: String,
-
 });
 
 const Couple = mongoose.model("Couple", coupleSchema);

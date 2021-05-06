@@ -1,9 +1,8 @@
-import mongoose, { Schema } from 'mongoose';
-import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
-
+import mongoose from "mongoose";
+import bcrypt from "bcrypt";
 const saltRounds = 10;
-const userSchema  = new Schema({
+import jwt from "jsonwebtoken";
+const userSchema = mongoose.Schema({
   username: {
     type: String,
   },
@@ -58,37 +57,29 @@ userSchema.pre("save", function (next) {
   }
 });
 
-userSchema.methods.comparePassword = function (plainpassword, cb) {
+userSchema.methods.comparePassword = async function (plainpassword) {
   console.log(this.password);
-  bcrypt.compare(plainpassword, this.password, function (err, isMatch) {
-    if (err) return cb(err);
-    else {
-      cb(null, isMatch);
-    }
-  });
+  const isMatch = await bcrypt.compare(plainpassword, this.password);
+  return isMatch;
 };
 
-userSchema.methods.generateToken = function (cb) {
+userSchema.methods.generateToken = async function (cb) {
   let user = this;
   let token = jwt.sign(user._id.toHexString(), "secretToken");
   user.token = token;
-  user.save(function (err, user) {
-    if (err) return cb(err);
-    cb(null, user);
-  });
+  user.save();
+
+  return user;
 };
 
-userSchema.statics.findByToken = function (token, cb) {
+userSchema.statics.findByToken = async function (token) {
   let user = this;
 
-  jwt.verify(token, "secretToken", function (err, decoded) {
-    console.log("thisis"+decoded)
-    user.findOne({"_id": decoded, "token": token }, function (err, user) {
-      if (err) return cb(err);
-      cb(null, user);
-    });
-  });
+  const decoded = await jwt.verify(token, "secretToken");
+  console.log("thisis" + decoded);
+  const gogo = await user.findOne({ _id: decoded, token: token });
+  return gogo;
 };
 
 const User = mongoose.model("User", userSchema);
-export default  User;
+export default User;

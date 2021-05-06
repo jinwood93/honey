@@ -33,7 +33,13 @@ function Subinformation() {
   const onsubmit = (e) => {
     e.preventDefault();
 
-    if (Birth === "" || FirstDate === "" || Sex === "" || FirstDate === ""||imgFile===null) {
+    if (
+      Birth === "" ||
+      FirstDate === "" ||
+      Sex === "" ||
+      FirstDate === "" ||
+      imgFile === null
+    ) {
       alert("모두 입력 해주세요!");
     } else {
       const formData = new FormData();
@@ -43,15 +49,14 @@ function Subinformation() {
       formData.append("Birth", Birth);
       formData.append("FirstDate", FirstDate);
       formData.append("file", imgFile);
-      const config={
-        headers:{
-          'content-type':'multipart/form-data'
-        }
-      }
-console.log(formData)
+      const config = {
+        headers: {
+          "content-type": "multipart/form-data",
+        },
+      };
 
       return axios
-        .post("/subinformation", formData,config)
+        .post("/first/subinformation", formData, config)
 
         .then((res) => {
           alert("회원가입 성공");

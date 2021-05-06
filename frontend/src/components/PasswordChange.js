@@ -17,7 +17,7 @@ function PasswordChange() {
         setconfirmpassword(e.target.value)
     }
     const check=()=>{
-        password===confirmpassword?axios.post('/updatepassword',{email:email,password:password})
+        password===confirmpassword?axios.post('/first/updatepassword',{email:email,password:password})
         .then(res=>{if(res.data.success==true){alert("비밀번호 변경완료!");history.push('/login')}})
         :alert("비밀번호가 서로다릅니다")
     }

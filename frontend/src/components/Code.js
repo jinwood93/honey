@@ -25,7 +25,7 @@ function Code(props) {
 
   useEffect(() => {
     axios
-      .post("/code", { email: props.state.email })
+      .post("/first/code", { email: props.state.email })
       .then((response) => setCode(response.data.randomCode));
   }, []);
   console.log("cocoo" + Code);
@@ -44,15 +44,15 @@ function Code(props) {
       console.log("메시지" + message);
       console.log(typeof message);
       if (typeof message == "boolean") {
-        if (message == true) {
+        if (message === true) {
           axios
-            .post("/lovecode", { authCode1: Code, authCode2: uCode })
+            .post("/first/lovecode", { authCode1: Code, authCode2: uCode })
             .then((res) => {
               res.data.success === true
                 ? history.push("subinformation")
-                : console.log("커플실패", res.data.err);
+                : console.log("커플실패");
             });
-        } else if (message == false) {
+        } else if (message === false) {
           alert("연결을 거부했습니다");
         } else {
           alert("타입이잘못됨");

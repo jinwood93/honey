@@ -8,11 +8,11 @@ function Mypage() {
   const [username, setusername] = useState(null);
   const [birth, setbirth] = useState(null);
   const [firstdate, setfirstdate] = useState(null);
-
+const[change,setchange]=useState(false);
   useEffect(() => {
     axios.get("/first/auth").then((res) => {
       if (res.data.isAuth === false) {
-        alert("로그인다시해주세요");
+        alert("로그아웃 되었습니다");
         history.push("/login");
       }
       setimg(res.data.profileimage);
@@ -22,14 +22,18 @@ function Mypage() {
       let newfirstdate = res.data.firstdate.slice(0, 10);
       setfirstdate(newfirstdate);
     });
-  }, []);
 
+  },[]);
+ 
   const logout = () => {
     axios.get("/first/logout").then((res) => {
+      console.log(res.data)
       if (res.data.success === true) {
+        alert("로그아웃 되었습니다")
         history.push("/login");
       }
     });
+  setchange(true);
   };
   return (
     <div className="Mypage-body">

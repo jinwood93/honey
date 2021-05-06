@@ -28,6 +28,11 @@ body{
   vertical-align: middle;
   
 }
+.first-welcome{
+  font-size: 30px;
+  font-family: 'Itim', cursive;
+  color: #F5C1BE;
+}
 #first-form2{
   box-sizing: border-box;
   margin: auto;
@@ -43,7 +48,7 @@ body{
   margin: auto;
   text-align: center;
   padding: 4px;
-  font-size: 18px;
+  font-size: 30px;
   text-decoration: none;
   color: white;
   text-decoration-line: none;
@@ -55,7 +60,7 @@ body{
 .first-login:hover{
   text-decoration: none;
   color: white;
-  box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.3);
+  box-shadow: 3px 3px 3px 2px rgba(0, 0, 0, 0.3);
   background-color: #E41549;
 }
 .first-register-info{
@@ -178,6 +183,7 @@ body{
 .btn-find-pw{
   margin-left: 50px;
   border-radius: 8px;
+  box-shadow: 1px 2px 1px rgba(0, 0, 0, 0.3);
 }
 .btn-find-pw:hover{
   color: white;

@@ -20,6 +20,7 @@ function First() {
       <div className="first-form">
         <div className="first-img">
       <img src={apeach} className="first-thum"></img>
+      <p className="first-welcome">Welcome to APEACH !</p>
       </div>
         <div id="first-form2">
           <Link className="first-login"

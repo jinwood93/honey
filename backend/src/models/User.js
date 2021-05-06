@@ -30,7 +30,7 @@ const userSchema = mongoose.Schema({
   authCode: {
     type: Number,
   },
-  profileimage: String,
+  profileimage:[],
   token: {
     type: String,
   },

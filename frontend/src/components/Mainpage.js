@@ -84,7 +84,7 @@ function Mainpage() {
             <Link to="/chat"><img src={chatUi} className="Main-ui-img" /></Link>
           </div>
           <div className="Main-ui">
-            <Link to="/gallary"><img src={gallery} className="Main-ui-img" /></Link>
+            <Link to="/ogallery"><img src={gallery} className="Main-ui-img" /></Link>
           </div>
         </div>
       </div>

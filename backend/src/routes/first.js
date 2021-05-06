@@ -267,7 +267,7 @@ first.get("/logout", auth,(ctx) => {
     { token: "" }
   );
  
- ctx.body={success:true}
+ ctx.body={success}
   
 });
 

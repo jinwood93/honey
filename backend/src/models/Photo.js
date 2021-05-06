@@ -1,9 +1,7 @@
 import mongoose from 'mongoose';
 
 const PhotoSchema = mongoose.Schema({
-  photo: {
-    type: Buffer
-  }
+  photo: String
 });
 
 PhotoSchema.methods.toJSON = function () {

@@ -26,7 +26,7 @@ const coupleSchema = mongoose.Schema({
   authCode2: {
     type: Number,
   },
-  image: String,
+  image: [],
 });
 
 const Couple = mongoose.model("Couple", coupleSchema);

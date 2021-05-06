@@ -19,6 +19,7 @@ import Mypage from "./components/Mypage";
 import Gallary from "./components/Gallary"
 import AppRouter from '../src/router/AppRouter'
 import thunk from 'redux-thunk';
+import Ogallery from "./components/Ogallery";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 Modal.setAppElement("#root");
@@ -52,7 +53,7 @@ function App() {
             ></Route>
             <Route path="/mainpage" exact component={Mainpage}></Route>
             <Route path="/mypage" exact component={Mypage}></Route>
-            <Route exact path="/gallary" component={AppRouter} />
+            <Route exact path="/ogallery" component={Ogallery} />
           </Provider>
         </Switch>
       </BrowserRouter>

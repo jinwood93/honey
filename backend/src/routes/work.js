@@ -5,7 +5,7 @@ import multer from "koa-multer";
 import fs from "fs";
 import path from "path";
 import moment from"moment";
-
+import Couple from "../models/Couple";
 const work = new Router();
 
 work.get("/", (ctx) => {
@@ -32,31 +32,61 @@ const upload = multer({
   }),
 });
 
-work.post("/photos", upload.single("photo"), async (ctx) => {
-  console.log("여기들림")
-  console.log(ctx.req.file.filename)
-  try {
-    const photo = new Photo(ctx.req.body);
-   
-    photo.photo = file;
+work.post("/photos", upload.single("file"), async (ctx) => {
+  console.log(ctx.req.file.filename);
+  console.log(ctx.req.body.authCode)
+try {
+  
 
-    await photo.save();
-    ctx.body = { _id: photo._id };
-  } catch (error) {
-    ctx.body = {
-      upload_error: `오류가 발생하여 파일이 업로드되지 않았습니다.<br>다시 시도해주시기 바랍니다`,
-    };
-  }
-});
+ await Couple.update({ $or : [
 
-work.get("/photos", async (ctx) => {
-  try {
-    const photos = await Photo.find({});
-    ctx.body = photos;
-  } catch (error) {
-    ctx.body = { get_error: "파일을 불러오던 중 오류가 발생하였습니다" };
+    { authCode1:ctx.req.body.authCode }
+    
+    , { authCode2: ctx.req.body.authCode}
+    
+    ] }, { $push: { image:ctx.req.file.filename } })
   }
-});
+    catch (error) {
+      console.log(err);
+    }
+    ctx.body={success:true}
+})
+
+work.post('/gallery', async (ctx) => {
+  console.log("여기"+ctx.request.body.authCode)
+  const user = await Couple.findOne({ $or : [
+
+    { authCode1:ctx.request.body.authCode }
+    
+    , { authCode2: ctx.request.body.authCode}
+    
+    ] });
+ ctx.body=user.image
+})
+
+
+//   console.log("여기들림")
+//   console.log(ctx.req.file.filename)
+//   try {
+//     (ctx.req.file,filename);
+//     await photo.save();
+//     ctx.body = { _id: photo._id };
+//   } catch (error) {
+//     ctx.body = {
+//       upload_error: `오류가 발생하여 파일이 업로드되지 않았습니다.<br>다시 시도해주시기 바랍니다`,
+//     };
+//   }
+// });
+
+// work.get("/photos", async (ctx) => {
+//   try {
+//     const photos = await Photo.find({});
+//     ctx.body = photos;
+//   } catch (error) {
+//     ctx.body = { get_error: "파일을 불러오던 중 오류가 발생하였습니다" };
+//   }
+// });
+
 
 work.get("/photos/:id", async (ctx) => {
   try {

@@ -138,6 +138,45 @@ first.post("/subinformation", upload.single("file"), async (ctx) => {
     },
     { upsert: true }
   );
+
+  console.log(ctx.req.body.FirstDate)
+  const fndcode = await User.findOne({
+    email: ctx.req.body.Email,  
+  });
+  console.log(fndcode.authCode)
+  
+  const checkcc = await Couple.findOne({
+    authCode1: fndcode.authCode,  
+  });
+  if(!checkcc){
+    const gogoinser = await Couple.update(
+      { authCode2: fndcode.authCode },
+      {
+        $set: {
+          username2: ctx.req.body.Username,
+          birth2: ctx.req.body.Birth,
+        },
+      },
+      { upsert: true }
+    );
+  }else{
+    const insertcop = await Couple.update(
+      { authCode1: fndcode.authCode },
+      {
+        $set: {
+          username1: ctx.req.body.Username,
+          birth1: ctx.req.body.Birth,
+          firstdate: ctx.req.body.FirstDate,
+        },
+      },
+      { upsert: true }
+    );
+  }
+
+
+  
+
+  
   console.log(what);
 
   console.log("원본파일명 : " + ctx.req.file.originalname);
@@ -219,15 +258,17 @@ first.get("/auth", auth, (ctx) => {
   };
 });
 
-first.get("/logout", auth, async (ctx) => {
-  const user = await User.findOneAndUpdate(
+first.get("/logout", auth,(ctx) => {
+  console.log("지금여기"+ctx.user._id)
+ User.findOneAndUpdate(
     {
-      _id: req.user._id,
+      _id: ctx.user._id,
     },
     { token: "" }
   );
-  if (!user) return (ctx.body = { success: false, err });
-  return (ctx.body = { success: true });
+ 
+ ctx.body={success:true}
+  
 });
 
 first.post("/findmylove", async (ctx) => {

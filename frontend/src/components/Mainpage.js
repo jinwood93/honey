@@ -71,7 +71,7 @@ function Mainpage() {
           <div className="Main-date">
             <span>처음 만난 날
           <p style={{ color: "orange" }}>{firstdate}</p>
-              <p><span>{partnerName}</span><span><img src={heart}></img></span><span>{username}</span></p>
+              <p><span>{partnerName}</span>쟈기<span><img src={heart}></img></span><span>{username}</span></p>
             </span>
           </div>
           <Link to="/mypage" className="profileimg"><img src={myimg} className="user-profileimg Main-myImg"></img></Link>

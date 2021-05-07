@@ -15,15 +15,17 @@ function Ogallery() {
       })
     }
     return (
-        <div>
-          
-            <h1>Photo Gallery App</h1>
-            <button onClick={()=>{setmodalon(true)}}>업로드</button>
-            <button onClick={show} >갤러리</button>
-
+        <div className="gallery-body">
+            <div className="gallery-part">
+            <p className="gallery-info">소중한 추억을 공유해보세요</p>
+            <div className="gallery-btn">
+            <button className="gallery-up" onClick={()=>{setmodalon(true)}}>업로드</button>
+            <button className="gallery-page" onClick={show} >Album</button>
+            </div>
+            
       
            {modalon===true?<Oupload authCode={authCode}></Oupload>:<Ophoto img={img}></Ophoto>}
-           
+           </div>
         </div>
     )
 }
@@ -70,7 +72,7 @@ function Oupload(props){
         })
     }
     return(
-        <div>
+        <div className="gallery-upload">
             <img
             src={imgBase64}
             style={{
@@ -79,8 +81,8 @@ function Oupload(props){
               height: "150px",
             }}
           ></img>
-            <input type="file" name="file" onChange={handleChangeFile}></input>
-            <button onClick={uploading}>업로드</button>
+            <p><input type="file" name="file" onChange={handleChangeFile}></input></p>
+            <button onClick={uploading}>저장</button>
         </div>
     )
 }
@@ -91,7 +93,7 @@ function Ophoto(props){
      
   
     return(<div>
-        <h2>갤러리 페이지</h2>
+        <h2>추억 앨범</h2>
          { props.img.map(function(e){
         return <img src={`/uploads/${e}`} style={{ "height" : "150px", "width" : "150px"}}></img>
       })}
